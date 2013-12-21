@@ -1,5 +1,33 @@
 import pygame,math
- 
+def get_angle(pos1,pos2):
+    run = float(pos1[0] - pos2[0])
+    rai = float(pos1[1] - pos2[1])
+    if run == 0:
+        rai = 0
+        run = 1
+    return (math.degrees(math.atan(rai/run)))
+
+def get_rel(degree):
+    small = math.radians(90- degree)
+    #print math.degrees(small)
+    run = 3*math.cos(small)
+    rai = 3*math.sin(small)
+    print (run,rai)
+    return (run,rai)
+    
+def get_distance(pos1,pos2):
+    return int(math.sqrt((pos1[0]-pos2[0])**2 + (pos1[1]-pos2[1])**2))
+    
+def line(surface,pos1,pos2):
+    ang = get_angle(pos1,pos2)
+    rel = get_rel(ang)
+    point1 = (pos1[0]+rel[0],pos1[1]-rel[1])
+    point2 = (pos1[0]-rel[0],pos1[1]+rel[1])
+    point3 = (pos2[0]-rel[0],pos2[1]+rel[1])
+    point4 = (pos2[0]+rel[0],pos2[1]-rel[1])
+    if self.status:
+       pygame.draw.polygon(surface, color.green, (point1,point2,point3,point4))
+    
 #----Engine and Base Code----
 pygame.init()
 size = [700,500]
@@ -20,18 +48,12 @@ while done == False:
         if event.type == pygame.QUIT:
             done = True
     screen.fill((255,255,255))
-    pygame.draw.circle(screen,(0,0,0),(300,300), 10)
     pos = pygame.mouse.get_pos()
-    d = math.sqrt((pos[0]-300)**2 + (pos[1]-300)**2)
-    c = pygame.mouse.get_rel()
-    if abs(c[0]) >= abs(c[1]):
-        ch = c[0]
-    else:
-        ch = c[1]
-    if d < 10 and ch < 1:
-        pygame.mouse.set_pos(300,300)
-
-        
+    
+    pygame.draw.circle(screen,(0,0,0),(300,300), 10)
+    line(screen,(300,300),(pos[0],pos[1]))
+    
+    
     pygame.display.flip()
     clock.tick(gaphic_frames)
      
