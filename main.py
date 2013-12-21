@@ -1,8 +1,11 @@
 import pygame
-from Other import color
+from UI import color,controller
 from Module.Logic_Gates import*
 from Module.Gate import Wire
-from Module.lib import snap_to_port
+from UI.lib import snap_to_port
+
+def add_sprite(controller):
+    for i in range()
  
 #----Engine and Base Code----
 pygame.init()
@@ -13,7 +16,8 @@ pygame.display.set_caption("My Game")
 
 #----Define----
 gaphic_frames = 60
-gates_list = pygame.sprite.Group()
+gaphic_controller = controller.Graphic()
+gates_list = pygame.sprite.LayeredUpdates()
 wires_list = pygame.sprite.Group()
 g = AND_Gate()
 o = OR_Gate()
@@ -33,12 +37,8 @@ while done == False:
         if event.type == pygame.QUIT:
             done = True
         if event.type == pygame.MOUSEBUTTONUP:
-            if holding:
-                holding = False
-                snap_to_port(gates_list,h_wire,pygame.mouse.get_pos())
-            
-    if holding:
-        h_wire.update()
+            mouse_pos = pygame.mouse.get_pos()
+            gaphic_controller.mouse_up(mouse_pos,gates_list,wires_list)
     
     screen.fill(color.white)
     g.rect.x = 100
@@ -49,9 +49,11 @@ while done == False:
 
     n.rect.x = 200
     n.rect.y = 300
-    
-    gates_list.draw(screen)
+        
     wires_list.draw(screen)
+    gates_list.draw(screen)
+    gaphic_controller.draw(screen)
+    
     pygame.display.flip()
     clock.tick(gaphic_frames)
      
