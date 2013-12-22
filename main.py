@@ -4,9 +4,6 @@ from Module.Logic_Gates import*
 from Module.Gate import Wire
 from UI.lib import snap_to_port
 
-def add_sprite(controller):
-    for i in range()
- 
 #----Engine and Base Code----
 pygame.init()
 size = [900,600]
@@ -16,9 +13,9 @@ pygame.display.set_caption("My Game")
 
 #----Define----
 gaphic_frames = 60
-gaphic_controller = controller.Graphic()
 gates_list = pygame.sprite.LayeredUpdates()
 wires_list = pygame.sprite.Group()
+gaphic_controller = controller.Graphic(gates_list,wires_list)
 g = AND_Gate()
 o = OR_Gate()
 n = NOT_Gate()
@@ -38,7 +35,7 @@ while done == False:
             done = True
         if event.type == pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
-            gaphic_controller.mouse_up(mouse_pos,gates_list,wires_list)
+            gaphic_controller.mouse_up(mouse_pos)
     
     screen.fill(color.white)
     g.rect.x = 100
