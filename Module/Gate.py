@@ -6,6 +6,9 @@ class Port:
         self.status = False
         self.conn_wire = True
         self.conn_list = []
+    def set_default_status(self):
+        self.update_status(False)
+    
     def update_status(self,new_status):
         if new_status != self.status:
             self.status = new_status
@@ -17,6 +20,15 @@ class Port:
 
     def connect_wire(self,wire):
         self.conn_list.append(wire)
+
+    def kill_wire(self):
+        for wire in self.conn_list:
+            wire.kill()
+        #Unknow bug,it can't kill all wire
+        for wire in self.conn_list:
+            wire.kill()
+        self.conn_list = []
+            
 
     def is_enough_wire(self):
         if self.conn_wire:
@@ -39,6 +51,7 @@ class logicGate(pygame.sprite.DirtySprite):
         self.port = []
         self.port.append(Port((74,20),True))
         self.state = False #output
+        self.deleting = False 
         
         #--Define--
         self.gate_type = gate_type
@@ -55,6 +68,12 @@ class logicGate(pygame.sprite.DirtySprite):
         self.rect = self.image.get_rect()
         self.update()
 
+    def kill(self):
+        self.deleting = True
+        for port in self.port:
+            port.kill_wire()
+        pygame.sprite.DirtySprite.kill(self)
+
     def port_pos(self,port_id):
         return((self.rect.x + self.port[port_id].position[0]),
                (self.rect.y + self.port[port_id].position[1]))
@@ -62,12 +81,18 @@ class logicGate(pygame.sprite.DirtySprite):
     def number_of_ports(self):
         return len(self.port)
 
+    def move_update(self):
+        for port in self.port:
+            port.update_req()
+            
+
 class Wire(pygame.sprite.DirtySprite):
     def __init__ (self,module,port):
         pygame.sprite.DirtySprite.__init__(self)
         if port == 0:
             self.start_module = module
             self.start_port = 0
+            self.start_module.port[self.start_port].connect_wire(self)
             
             self.end_module = None
             self.end_port = None
@@ -77,6 +102,7 @@ class Wire(pygame.sprite.DirtySprite):
             
             self.end_module = module
             self.end_port = port
+            self.end_module.port[self.end_port].connect_wire(self)
         self.status = False
         self.draw_image()
 
@@ -88,18 +114,22 @@ class Wire(pygame.sprite.DirtySprite):
 
     def update_req(self):
         if self.end_module != None:
-            self.end_module.port[end_port].status = self.status
+            self.end_module.port[self.end_port].status = self.status
             self.end_module.update()
             
     def update(self):
-        self.update_status(self.start_module.port[0].status)
+        if self.start_module == None:
+            self.update_status(False)
+        else:
+            self.update_status(self.start_module.port[0].status)
         self.draw_image()
 
-    def kill(self,clear_conn_list=True):
-        if clear_conn_list:
-            if self.start_module != None:
-                self.start_module.port[self.start_port].conn_list.remove(self)
-            if self.end_module != None:
+    def kill(self):
+        if self.start_module != None:
+            self.start_module.port[self.start_port].conn_list.remove(self)
+        if self.end_module != None:
+            if self.end_module.deleting == False:
+                self.end_module.port[self.end_port].set_default_status()
                 self.end_module.port[self.end_port].conn_list.remove(self)
         pygame.sprite.DirtySprite.kill(self)
         
@@ -117,7 +147,6 @@ class Wire(pygame.sprite.DirtySprite):
         
     def draw_image(self):
         if (self.start_module == None) and (self.end_module == None):
-            print('b')
             self.kill()
         else:
             if(self.start_module != None) and (self.end_module != None):

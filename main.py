@@ -13,17 +13,21 @@ pygame.display.set_caption("My Game")
 
 #----Define----
 gaphic_frames = 60
-gates_list = pygame.sprite.LayeredUpdates()
-wires_list = pygame.sprite.Group()
-gaphic_controller = controller.Graphic(gates_list,wires_list)
+gates_group = pygame.sprite.LayeredUpdates()
+wires_group = pygame.sprite.Group()
+gaphic_controller = controller.Graphic(gates_group,wires_group)
 g = AND_Gate()
 o = OR_Gate()
 n = NOT_Gate()
-w = Wire(n,0)
-gates_list.add(g,o,n)
-wires_list.add(w)
-h_wire = w
-holding = True
+g.rect.x = 100
+g.rect.y = 100
+    
+o.rect.x = 400
+o.rect.y = 300
+
+n.rect.x = 200
+n.rect.y = 300
+gates_group.add(g,o,n)
 
 #----Ready----
 done = False
@@ -33,23 +37,20 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            gaphic_controller.mouse_down(mouse_pos)
         if event.type == pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
             gaphic_controller.mouse_up(mouse_pos)
-    
+    #Game&Graphic Logic
+    gaphic_controller.logic()
+    #Draw
     screen.fill(color.white)
-    g.rect.x = 100
-    g.rect.y = 100
-    
-    o.rect.x = 300
-    o.rect.y = 300
-
-    n.rect.x = 200
-    n.rect.y = 300
-        
-    wires_list.draw(screen)
-    gates_list.draw(screen)
-    gaphic_controller.draw(screen)
+    gaphic_controller.draw_buttom_layer(screen)
+    wires_group.draw(screen)
+    gates_group.draw(screen)
+    gaphic_controller.draw_top_layer(screen)
     
     pygame.display.flip()
     clock.tick(gaphic_frames)

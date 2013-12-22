@@ -63,11 +63,11 @@ def snap_to_port(gates_group,wire,pos):
 
 def select_sprite (gates_group,pos,controller):
     select_sprites = gates_group.get_sprites_at(pos)
-    number = len(select_sprites)
-    if number > 0:
+    number = len(select_sprites)-1
+    if number >= 0:
         module = select_sprites[number]
         port_number = module.number_of_ports()
-        for i in range:
+        for i in range(port_number):
             dis = get_dis_nsqrt(pos,module.port_pos(i))
             if dis < 50:
                 controller.click_on_port(module,i)

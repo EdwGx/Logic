@@ -1,5 +1,5 @@
 import pygame,math
-def get_angle(pos1,pos2):
+'''def get_angle(pos1,pos2):
     run = float(pos1[0] - pos2[0])
     rai = float(pos1[1] - pos2[1])
     if run == 0:
@@ -27,7 +27,7 @@ def line(surface,pos1,pos2):
     point4 = (pos2[0]+rel[0],pos2[1]-rel[1])
     if self.status:
        pygame.draw.polygon(surface, color.green, (point1,point2,point3,point4))
-    
+    '''
 #----Engine and Base Code----
 pygame.init()
 size = [700,500]
@@ -37,6 +37,8 @@ pygame.display.set_caption("My Game")
 
 #----Define----
 gaphic_frames = 60
+timer = 0
+timer_s = False
 
 
 #----Ready----
@@ -47,11 +49,19 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            timer_s = True
+        if event.type == pygame.MOUSEBUTTONUP:
+            timer_s = False
+            print(timer)
+            timer = 0
+    if timer_s:
+        timer+=1
     screen.fill((255,255,255))
     pos = pygame.mouse.get_pos()
     
-    pygame.draw.circle(screen,(0,0,0),(300,300), 10)
-    line(screen,(300,300),(pos[0],pos[1]))
+    '''pygame.draw.circle(screen,(0,0,0),(300,300), 10)
+    line(screen,(300,300),(pos[0],pos[1]))'''
     
     
     pygame.display.flip()

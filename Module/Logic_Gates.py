@@ -22,7 +22,6 @@ class NOT_Gate(logicGate):
         logicGate.__init__(self,7)
         
     def update(self):
-        print(Logic.NOTG(self.port[1].status))
         self.port[0].update_status(Logic.NOTG(self.port[1].status))
 
 
