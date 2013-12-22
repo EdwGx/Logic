@@ -52,4 +52,8 @@ class Graphic(Controller):
                 icon_pos[1] -= 10
                 surface.blit(self.delete_icon ,icon_pos)
             else:
+                icon_pos = self.delete_module.port_pos(self.delete_port)
+                icon_pos[0]  -= 10
+                icon_pos[1]  -= 10
+                surface.blit(self.delete_icon ,icon_pos)
                 
