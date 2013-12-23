@@ -9,11 +9,14 @@ How to install?
        
 2.Download and install [pygame](http://www.pygame.org/download.shtml). 
       
-3.Run the main.py in python with pygame.      
+3.Run the main.py in python with pygame.  
 
 Plan Features
 -------------
--Change logic gates' images    
--Add logic gates freely    
--Add wires freely   
--Translate into c++ or object-c  
+* Change logic gates images    
+* Better GUI
+* Add logic gates freely   
+* ~~Add wires freely~~ 
+* More Input Devices
+* More Output Devices   
+* Make an object-c app with SpriteKit  
