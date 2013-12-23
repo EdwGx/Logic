@@ -32,7 +32,7 @@ class Input(logicGate):
         if rel_pos[0] > self.margin and rel_pos[0] < (self.rect.width - self.margin):
             if rel_pos[1] > self.margin and rel_pos[0] < (self.rect.height - self.margin):
                 self.change_status()
-                return False
+                return True
             else:
                 return True
         else:

@@ -19,6 +19,12 @@ class Graphic(Controller):
         self.deleting = False
         self.delete_icon = pygame.image.load(os.path.join('UI','Resources','delete_icon.png'))
         self.delete_rect = self.delete_icon.get_rect()
+        #Delete Corner
+        self.draw_delc = False
+        self.draw_delc_p = 0
+        self.delc_pic =[pygame.image.load(os.path.join('UI','Resources','delete_corner1.png')),
+                    pygame.image.load(os.path.join('UI','Resources','delete_corner2.png'))]
+                    
         #Drag
         self.drag_module = None
         self.drag_mPos = (0,0)
@@ -72,6 +78,7 @@ class Graphic(Controller):
                     self.delete_port = None
             else:
                 self.double_click = True
+                
         elif self.event == 2:
             if get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
                 self.drag_module.kill()
@@ -121,16 +128,25 @@ class Graphic(Controller):
             
         if self.event == 2:
             mouse_pos = pygame.mouse.get_pos()
+            if get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
+                self.draw_delc_p = 1
+            else:
+                self.draw_delc_p = 0
+                
             relx = mouse_pos[0] - self.drag_mPos[0]
             rely = mouse_pos[1] - self.drag_mPos[1]
             self.drag_mPos = mouse_pos
             self.drag_module.rect.x += relx
             self.drag_module.rect.y += rely
             self.drag_module.move_update()
+            self.draw_delc = True
             
 
     def draw_buttom_layer(self,surface):
-        pass
+        if self.draw_delc:
+            self.draw_delc = False
+            surface.blit(self.delc_pic[self.draw_delc_p] ,(800,500)) 
+            
 
 
     def draw_top_layer(self,surface):

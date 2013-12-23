@@ -51,6 +51,7 @@ while done == False:
             done = True
         if event.type == pygame.MOUSEBUTTONDOWN:
             timer_s = True
+            print(event.button)
         if event.type == pygame.MOUSEBUTTONUP:
             timer_s = False
             print(timer)

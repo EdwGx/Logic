@@ -44,15 +44,18 @@ while done == False:
             done = True
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
-            gaphic_controller.mouse_down(mouse_pos)
+            if event.button == 1:
+                gaphic_controller.mouse_down(mouse_pos)
         if event.type == pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
-            gaphic_controller.mouse_up(mouse_pos)
+            if event.button == 1:
+                gaphic_controller.mouse_up(mouse_pos)
     #Game&Graphic Logic
     gaphic_controller.graphic_logic()
     #Draw
     screen.fill((180,180,180))
     gaphic_controller.draw_buttom_layer(screen)
+    screen.blit(pygame.image.load(os.path.join('UI','Resources','selection_bar.png')),(0,0))
     wires_group.draw(screen)
     gates_group.draw(screen)
     gaphic_controller.draw_top_layer(screen)
