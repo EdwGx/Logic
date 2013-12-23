@@ -2,6 +2,7 @@ import pygame
 from UI import color,controller
 from Module.Logic_Gates import*
 from Module.Gate import Wire
+from Module.input import Input
 from UI.lib import snap_to_port
 
 #----Engine and Base Code----
@@ -19,15 +20,19 @@ gaphic_controller = controller.Graphic(gates_group,wires_group)
 g = AND_Gate()
 o = OR_Gate()
 n = NOT_Gate()
+i = Input()
 g.rect.x = 100
 g.rect.y = 100
     
 o.rect.x = 400
 o.rect.y = 300
 
+i.rect.x = 500
+i.rect.y = 300
+
 n.rect.x = 200
 n.rect.y = 300
-gates_group.add(g,o,n)
+gates_group.add(g,o,n,i)
 
 #----Ready----
 done = False
@@ -46,7 +51,7 @@ while done == False:
     #Game&Graphic Logic
     gaphic_controller.graphic_logic()
     #Draw
-    screen.fill(color.white)
+    screen.fill((180,180,180))
     gaphic_controller.draw_buttom_layer(screen)
     wires_group.draw(screen)
     gates_group.draw(screen)

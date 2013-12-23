@@ -88,6 +88,7 @@ class Graphic(Controller):
         
             
     def click_on_port(self,module,port_id):
+        print ("Module:%s; Port:%s; Status:%s"%(module.__class__.__name__ ,str(port_id),module.port[port_id].status))
         if module.port[port_id].is_enough_wire():
             self.new_wire = Wire(module,port_id)
             self.wires_group.add(self.new_wire)

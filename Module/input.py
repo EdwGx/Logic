@@ -1,4 +1,5 @@
 from Gate import logicGate,Port
+import pygame.image,os.path
 class Input(logicGate):
     def __init__(self):
         logicGate.__init__(self,8)
@@ -7,9 +8,11 @@ class Input(logicGate):
         self.port[1].conn_wire = False
         self.margin = 10
         self.draw_image()
+        self.rect = self.image.get_rect()
 
     def update(self):
-        port[0].update()
+        self.port[0].update()
+        self.draw_image()
 
 
     def port_pos(self,port_id):
@@ -23,10 +26,17 @@ class Input(logicGate):
         self.status = not(self.status)
         for port in self.port:
             port.update_status(self.status)
+        self.update()
     
     def click_res(self,rel_pos):
         if rel_pos[0] > self.margin and rel_pos[0] < (self.rect.width - self.margin):
             if rel_pos[1] > self.margin and rel_pos[0] < (self.rect.height - self.margin):
+                self.change_status()
+                return False
+            else:
+                return True
+        else:
+            return True
                 
             
 
@@ -37,8 +47,6 @@ class Input(logicGate):
     def draw_image(self):
         if self.status:
             self.image = pygame.image.load(os.path.join('Module','Resources','switch_on.png'))
-            self.rect = self.image.get_rect()
         else:
             self.image = pygame.image.load(os.path.join('Module','Resources','switch_off.png'))
-            self.rect = self.image.get_rect()
         
