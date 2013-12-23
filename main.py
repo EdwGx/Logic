@@ -44,7 +44,7 @@ while done == False:
             mouse_pos = pygame.mouse.get_pos()
             gaphic_controller.mouse_up(mouse_pos)
     #Game&Graphic Logic
-    gaphic_controller.logic()
+    gaphic_controller.graphic_logic()
     #Draw
     screen.fill(color.white)
     gaphic_controller.draw_buttom_layer(screen)

@@ -69,10 +69,11 @@ def select_sprite (gates_group,pos,controller):
         port_number = module.number_of_ports()
         for i in range(port_number):
             dis = get_dis_nsqrt(pos,module.port_pos(i))
-            if dis < 50:
+            if dis < 50 and module.port[i].conn_wire:
                 controller.click_on_port(module,i)
                 return True
-        controller.click_on_module(module)
+        rel_pos = (pos[0] - module.rect.x,pos[1] - module.rect.y)
+        controller.click_on_module(module,rel_pos)
         return True
     return False
 
