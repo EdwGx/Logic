@@ -155,4 +155,4 @@ class Graphic(Controller):
         #Delete Icon
         if self.delete_draw:
             self.delete_draw = False
-            surface.blit(self.delete_icon ,self.delete_rect)            
+            surface.blit(self.delete_icon ,self.delete_rect)

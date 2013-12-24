@@ -34,4 +34,48 @@ class NOT_Gate(logicGate):
         logicGate.update(self)
         self.port[0].update_status(Logic.NOTG(self.port[1].status))
 
+class XOR_Gate(logicGate):
+    def __init__(self):
+        logicGate.__init__(self,3)
+        self.image = pygame.image.load(os.path.join('Module','Resources','xor_gate.png'))
+        self.rect = self.image.get_rect()
+        self.update()
+        
+    def update(self):
+        logicGate.update(self)
+        self.port[0].update_status(Logic.XORG(self.port[1].status,self.port[2].status))
+
+class NAND_Gate(logicGate):
+    def __init__(self):
+        logicGate.__init__(self,4)
+        self.image = pygame.image.load(os.path.join('Module','Resources','nand_gate.png'))
+        self.rect = self.image.get_rect()
+        self.update()
+        
+    def update(self):
+        logicGate.update(self)
+        self.port[0].update_status(Logic.NANDG(self.port[1].status,self.port[2].status))
+
+class NOR_Gate(logicGate):
+    def __init__(self):
+        logicGate.__init__(self,5)
+        self.image = pygame.image.load(os.path.join('Module','Resources','nor_gate.png'))
+        self.rect = self.image.get_rect()
+        self.update()
+        
+    def update(self):
+        logicGate.update(self)
+        self.port[0].update_status(Logic.NORG(self.port[1].status,self.port[2].status))
+
+class XNOR_Gate(logicGate):
+    def __init__(self):
+        logicGate.__init__(self,6)
+        self.image = pygame.image.load(os.path.join('Module','Resources','xnor_gate.png'))
+        self.rect = self.image.get_rect()
+        self.update()
+        
+    def update(self):
+        logicGate.update(self)
+        self.port[0].update_status(Logic.XNORG(self.port[1].status,self.port[2].status))
+
 
