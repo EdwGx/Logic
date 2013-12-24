@@ -22,19 +22,39 @@ class SideBar:
         self.waiting_list.reverse()
         #Add some elements info
         for element in self.waiting_list:
-            height = element[1].get_height()
-            element.append(height)
+            element.append(element[1].get_width()/2)
+            element.append(element[1].get_height()/2)
+            element.append(0)
+            element.append(0)
             
 
-    def add_top(listA,listB):
+    def add_top(listA,listB):):
         listB.insert(0,listA.pop(0))
 
     def add_buttom(listA,listB):
         listB.append(listA.pop())
 
-    def upadte(self):
-        total = self.space
-        for e in self.disply
+    def get_centerx(centery):
+        y = abs(300 - centery)
+        return int(-0.000442*y*y + 90)
+        
+
+    def full_display(self):
+        element = self.waiting_list.pop()
+        element[5] = self.space + element[3]
+        element[4] = get_centerx(element[5])
+        total = element[5] + element[3]
+        self.disply_list.append(element)
+        while total < self.height:
+            total += self.space
+            element = self.waiting_list.pop()
+            element[5] = total + element[3]
+            element[4] = get_centerx(element[5])
+            total = element[5] + element[3]
+            self.disply_list.append(element)
+            
+            
+    def scroll_down(self):
         
         
         
