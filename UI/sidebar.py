@@ -5,8 +5,8 @@ sys.path.append("..")
 class SideBar:
     def __init__(self,graphic_controller):
         #Define
-        self.space = 30
-        self.speed = 1
+        self.space = 40
+        self.speed = 8
         self.height = 600
         self.disply_list = []
         self.waiting_list = []
@@ -52,33 +52,33 @@ class SideBar:
             
             
     def scroll_up(self):
+        for element in self.disply_list:
+            element[5] += self.speed
+            element[4] = get_centerx(element[5])
+            
+        #Move the data from top of waiting_list to the top of disply_list
         if len(self.waiting_list) > 0:
-            for element in self.disply_list:
-                element[5] += self.speed
-                element[4] = get_centerx(element[5])
-                
-            #Move the data from top of waiting_list to the top of disply_list
             top_dis = self.disply_list[0][5] - self.disply_list[0][3]
             if top_dis > self.space:
                 element = self.waiting_list.pop(0)
-                element[5] = element[3] - top_dis + self.space
+                element[5] = top_dis - self.space - element[3]
                 element[4] = get_centerx(element[5])
                 self.disply_list.insert(0,element)
-                
-            #Move the data from bottom of disply_list to the bottom of waiting_list
-            last = len(self.disply_list) - 1
-            if (self.disply_list[last][5] - self.disply_list[last][3]) > self.height:
-                element = self.disply_list.pop()
-                element[4] = 0
-                element[5] = 0
-                self.waiting_list.append(element)
+            
+        #Move the data from bottom of disply_list to the bottom of waiting_list
+        last = len(self.disply_list) - 1
+        if (self.disply_list[last][5] - self.disply_list[last][3]) > self.height:
+            element = self.disply_list.pop()
+            element[4] = 0
+            element[5] = 0
+            self.waiting_list.append(element)
 
     def scroll_down(self):
-        if len(self.waiting_list) > 0:
-            for element in self.disply_list:
-                element[5] -= self.speed
-                element[4] = get_centerx(element[5])
+        for element in self.disply_list:
+            element[5] -= self.speed
+            element[4] = get_centerx(element[5])
 
+        if len(self.waiting_list) > 0:
             last = len(self.disply_list) - 1
             bottom_dis = self.height - self.disply_list[last][5]
             bottom_dis -= self.disply_list[last][3]
@@ -88,11 +88,11 @@ class SideBar:
                 element[4] = get_centerx(element[5])
                 self.disply_list.append(element)
 
-            if (self.disply[0][5] + self.disply[0][3]) < 0:
-                element = self.disply_list.pop(0)
-                element[4] = 0
-                element[5] = 0
-                self.waiting_list.insert(0,element)
+        if (self.disply_list[0][5] + self.disply_list[0][3]) < 0:
+            element = self.disply_list.pop(0)
+            element[4] = 0
+            element[5] = 0
+            self.waiting_list.insert(0,element)
 
     def mouse_down(self,pos):
         for element in self.disply_list:

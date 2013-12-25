@@ -29,6 +29,10 @@ while done == False:
                 gaphic_controller.mouse_down(mouse_pos)
             elif event.button == 1:
                 selection_controller.mouse_down(mouse_pos)
+            elif event.button == 4 and mouse_pos[0] < 140:
+                selection_controller.scroll_up()
+            elif event.button == 5 and mouse_pos[0] < 140:
+                selection_controller.scroll_down()
         if event.type == pygame.MOUSEBUTTONUP:
             mouse_pos = pygame.mouse.get_pos()
             if event.button == 1:
