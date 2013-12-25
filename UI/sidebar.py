@@ -5,10 +5,12 @@ sys.path.append("..")
 class SideBar:
     def __init__(self):
         #Define
-        self.space = 10
+        self.space = 30
+        self.speed = 1
         self.height = 600
         self.disply_list = []
         self.waiting_list = []
+        self.bar_image = pygame.image.load(os.path.join('UI','Resources','selection_bar.png'))
         #Add game elements/module
         #1-7:Gates,8:Switch
         self.waiting_list.append([1,load_image('and_gate.png')])
@@ -26,26 +28,19 @@ class SideBar:
             element.append(element[1].get_height()/2)
             element.append(0)
             element.append(0)
-            
+            element.append(True)
+        self.full_disply()
 
-    def add_top(listA,listB):):
-        listB.insert(0,listA.pop(0))
-
-    def add_buttom(listA,listB):
-        listB.append(listA.pop())
-
-    def get_centerx(centery):
-        y = abs(300 - centery)
-        return int(-0.000442*y*y + 90)
+    
         
 
-    def full_display(self):
-        element = self.waiting_list.pop()
+    def full_disply(self):
+        element = self.waiting_list.pop()#[len(self.waiting_list)-1]
         element[5] = self.space + element[3]
         element[4] = get_centerx(element[5])
         total = element[5] + element[3]
         self.disply_list.append(element)
-        while total < self.height:
+        while (total < self.height) and (len(self.waiting_list) > 0):
             total += self.space
             element = self.waiting_list.pop()
             element[5] = total + element[3]
@@ -54,11 +49,62 @@ class SideBar:
             self.disply_list.append(element)
             
             
-    def scroll_down(self):
-        
-        
-        
+    def scroll_up(self):
+        if len(self.waiting_list) > 0:
+            for element in self.disply_list:
+                element[5] += self.speed
+                element[4] = get_centerx(element[5])
+                
+            #Move the data from top of waiting_list to the top of disply_list
+            top_dis = self.disply_list[0][5] - self.disply_list[0][3]
+            if top_dis > self.space:
+                element = self.waiting_list.pop(0)
+                element[5] = element[3] - top_dis + self.space
+                element[4] = get_centerx(element[5])
+                self.disply_list.insert(0,element)
+                
+            #Move the data from bottom of disply_list to the bottom of waiting_list
+            last = len(self.disply_list) - 1
+            if (self.disply_list[last][5] - self.disply_list[last][3]) > self.height:
+                element = self.disply_list.pop()
+                element[4] = 0
+                element[5] = 0
+                self.waiting_list.append(element)
 
-    def load_image(fname):
-        path = os.path.join('Module','Resources',fname)
-        return pygame.image.load(path)
+    def scroll_down(self):
+        if len(self.waiting_list) > 0:
+            for element in self.disply_list:
+                element[5] -= self.speed
+                element[4] = get_centerx(element[5])
+
+            last = len(self.disply_list) - 1
+            bottom_dis = self.height - self.disply_list[last][5]
+            bottom_dis -= self.disply_list[last][3]
+            if bottom_dis > self.space:
+                element = self.waiting_list.pop()
+                element[5] = self.height - bottom_dis + self.space + element[3]
+                element[4] = get_centerx(element[5])
+                self.disply_list.append(element)
+
+            if (self.disply[0][5] + self.disply[0][3]) < 0:
+                element = self.disply_list.pop(0)
+                element[4] = 0
+                element[5] = 0
+                self.waiting_list.insert(0,element)
+
+    def mouse_down(self,pos):
+
+    def draw(self,surface):
+        surface.blit(self.bar_image,(0,0))
+        for element in self.disply_list:
+            if element[6]:
+                surface.blit(element[1],((element[4]-element[2]),(element[5]-element[3])))
+
+def load_image(fname):
+    path = os.path.join('Module','Resources',fname)
+    return pygame.image.load(path)
+
+def get_centerx(centery):
+    y = abs(300 - centery)
+    return int(-0.000442*y*y + 90)
+            

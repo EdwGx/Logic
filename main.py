@@ -1,5 +1,5 @@
 import pygame
-from UI import color,controller
+from UI import color,controller,sidebar
 from Module.Logic_Gates import*
 from Module.Gate import Wire
 from Module.input import Input
@@ -17,6 +17,7 @@ gaphic_frames = 60
 gates_group = pygame.sprite.LayeredUpdates()
 wires_group = pygame.sprite.Group()
 gaphic_controller = controller.Graphic(gates_group,wires_group)
+selection_controller = sidebar.SideBar()
 g = AND_Gate()
 o = OR_Gate()
 n = NOT_Gate()
@@ -59,7 +60,7 @@ while done == False:
     wires_group.draw(screen)
     gates_group.draw(screen)
     gaphic_controller.draw_top_layer(screen)
-    
+    selection_controller.draw(screen)
     pygame.display.flip()
     clock.tick(gaphic_frames)
      
