@@ -83,6 +83,12 @@ class Graphic(Controller):
             self.drag_module = None
             self.drag_mPos = (0,0)
 
+        select_sprites = self.gates_group.get_sprites_at(pos)
+        if len(select_sprites) > 0:
+            if select_sprites[-1].__class__.__name__ == 'Button':
+                select_sprites[-1].mouse_up()
+            
+
     def click_on_delete(self):
         self.delete_timer = 0
         self.deleting = True
@@ -128,6 +134,8 @@ class Graphic(Controller):
             new_module = Logic_Gates.XNOR_Gate()
         elif module_type == 8:
             new_module = input_module.Input()
+        elif module_type == 9:
+            new_module = input_module.Button()
 
         new_module.rect.center = pos
         self.new_type = module_type

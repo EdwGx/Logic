@@ -21,6 +21,7 @@ class SideBar:
         self.waiting_list.append([5,load_image('nand_gate.png')])
         self.waiting_list.append([6,load_image('nor_gate.png')])
         self.waiting_list.append([7,load_image('xnor_gate.png')])
+        self.waiting_list.append([9,load_image('button_off.png')])
         self.waiting_list.append([8,load_image('switch_off.png')])
         self.waiting_list.reverse()
         #Add some elements info

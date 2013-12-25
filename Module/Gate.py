@@ -59,7 +59,7 @@ class logicGate(pygame.sprite.DirtySprite):
         self.dual_in = False
         #--Define--
         self.gate_type = gate_type
-        #1.AND 2.OR 3.XOR 4.NAND 5.NOR 6.XNOR 7.NOT 8.INPUT
+        #1.AND 2.OR 3.XOR 4.NAND 5.NOR 6.XNOR 7.NOT 8.SWITCH 9.BUTTON
         if gate_type == 7:
             self.port.append(Port((74,20),True))
             self.port.append(Port((6,20)))
