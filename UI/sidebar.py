@@ -3,23 +3,24 @@ sys.path.append("..")
 #from Module.Gate import Wire
 
 class SideBar:
-    def __init__(self):
+    def __init__(self,graphic_controller):
         #Define
         self.space = 30
         self.speed = 1
         self.height = 600
         self.disply_list = []
         self.waiting_list = []
+        self.graphic_controller = graphic_controller
         self.bar_image = pygame.image.load(os.path.join('UI','Resources','selection_bar.png'))
         #Add game elements/module
         #1-7:Gates,8:Switch
         self.waiting_list.append([1,load_image('and_gate.png')])
         self.waiting_list.append([2,load_image('or_gate.png')])
         self.waiting_list.append([3,load_image('xor_gate.png')])
-        self.waiting_list.append([4,load_image('nand_gate.png')])
-        self.waiting_list.append([5,load_image('nor_gate.png')])
-        self.waiting_list.append([6,load_image('xnor_gate.png')])
-        self.waiting_list.append([7,load_image('not_gate.png')])
+        self.waiting_list.append([4,load_image('not_gate.png')])
+        self.waiting_list.append([5,load_image('nand_gate.png')])
+        self.waiting_list.append([6,load_image('nor_gate.png')])
+        self.waiting_list.append([7,load_image('xnor_gate.png')])
         self.waiting_list.append([8,load_image('switch_off.png')])
         self.waiting_list.reverse()
         #Add some elements info
@@ -93,6 +94,29 @@ class SideBar:
                 self.waiting_list.insert(0,element)
 
     def mouse_down(self,pos):
+        for element in self.disply_list:
+            if element[6]:
+                if element[5] + element[3] > pos[1]:
+                    if element[5] - element[3] < pos[1]:
+                        if element[4] - element[2] < pos[0]:
+                            if element[4] + element[2] > pos[0]:
+                                element[6] = False
+                                self.graphic_controller.add_module(element[0],(element[4],element[5]),self)
+                                break
+    def new_module_stop(self,mod_type):
+        stop = False
+        for element in self.disply_list:
+            if element[0] == mod_type:
+                element[6] = True
+                stop = True
+                break
+        if not(stop):
+            for element in self.waiting_list:
+                if element[0] == mod_type:
+                    element[6] = True
+                    stop = True
+                    break
+        
 
     def draw(self,surface):
         surface.blit(self.bar_image,(0,0))
