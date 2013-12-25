@@ -15,8 +15,8 @@ Plan Features
 -------------
 * Change logic gates images    
 * Better GUI
-* Add logic gates freely   
+* ~~Add logic gates freely~~   
 * ~~Add wires freely~~ 
-* More Input Devices
-* More Output Devices   
+* More Input Devices (1) `In Progress`
+* More Output Devices  (0) `In Progress`
 * Make an object-c app with SpriteKit  
