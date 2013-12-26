@@ -1,7 +1,13 @@
 Logic
 =====
-
 Open Source Logic Simulator With [Pygame](http://www.pygame.org/wiki/about)
+
+What is logic gate?
+--------------------
+And Gate
+ A | B | C
+ --|---|--
+ 0 | 0 | 0
 
 How to install?
 --------------------
@@ -13,10 +19,10 @@ How to install?
 
 Plan Features
 -------------
-* Change logic gates images    
-* Better GUI
+* Change logic gates images `In Progress`   
+* Better GUI `In Progress`
 * ~~Add logic gates freely~~   
 * ~~Add wires freely~~ 
 * ~~More Input Devices (Switch and Button)~~
-* More Output Devices  (0) `In Progress`
+* More Output Devices  (1 so far) `Later, not now`
 * Make an object-c app with SpriteKit  
