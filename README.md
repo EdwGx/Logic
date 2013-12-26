@@ -2,13 +2,6 @@ Logic
 =====
 Open Source Logic Simulator With [Pygame](http://www.pygame.org/wiki/about)
 
-What is logic gate?
---------------------
-And Gate
- A | B | C
- --|---|--
- 0 | 0 | 0
-
 How to install?
 --------------------
 1.Download from [python.org](http://www.python.org/download/) and install python 3.3 (Windows) or 2.7 (OS X).      
