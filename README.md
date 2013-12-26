@@ -4,7 +4,7 @@ Open Source Logic Simulator With [Pygame](http://www.pygame.org/wiki/about)
 
 How to install?
 --------------------
-1.Download from [python.org](http://www.python.org/download/) and install python 3.3 (Windows) or 2.7 (OS X).      
+1.Download python from [python.org](http://www.python.org/download/) and install python 3.3 (Windows) or 2.7 (OS X).      
        
 2.Download and install [pygame](http://www.pygame.org/download.shtml). 
       
