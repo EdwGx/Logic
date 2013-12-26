@@ -2,7 +2,7 @@ from lib import select_sprite,snap_to_port,get_dis_nsqrt
 import pygame.image,os.path,sys
 sys.path.append("..")
 from Module.Gate import Wire
-from Module import Logic_Gates,input_module
+from Module import Logic_Gates,input_module,output_module
 class Controller:
     def __init__(self):
         pass
@@ -98,7 +98,6 @@ class Graphic(Controller):
         
             
     def click_on_port(self,module,port_id):
-        print ("Module:%s; Port:%s; Status:%s"%(module.__class__.__name__ ,str(port_id),module.port[port_id].status))
         if module.port[port_id].is_enough_wire():
             self.new_wire = Wire(module,port_id)
             self.wires_group.add(self.new_wire)
@@ -136,6 +135,8 @@ class Graphic(Controller):
             new_module = input_module.Input()
         elif module_type == 9:
             new_module = input_module.Button()
+        elif module_type == 10:
+            new_module = output_module.Output()
 
         new_module.rect.center = pos
         self.new_type = module_type

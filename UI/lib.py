@@ -76,18 +76,3 @@ def select_sprite (gates_group,pos,controller):
         controller.click_on_module(module,rel_pos)
         return True
     return False
-
-        
-        
-                
-                
-    
-                    
-                    
-                    
-                
-                        
-                    
-                
-                
-    

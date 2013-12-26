@@ -208,8 +208,12 @@ class Wire(pygame.sprite.DirtySprite):
             self.image.convert_alpha()
             self.rect = self.image.get_rect()
             if self.status:
+                #pygame.draw.aaline(self.image,color.green,poi2,poi3,2)
+                #pygame.draw.aaline(self.image,color.green,poi1,poi4,2)
                 pygame.draw.polygon(self.image,color.green, (poi1,poi2,poi3,poi4))
             else:
+                #pygame.draw.aaline(self.image,color.black,poi2,poi3)
+                #pygame.draw.aaline(self.image,color.black,poi1,poi4)
                 pygame.draw.polygon(self.image,color.black, (poi1,poi2,poi3,poi4))
             self.rect.x = top[0]
             self.rect.y = top[1]
