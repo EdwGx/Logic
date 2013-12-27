@@ -148,7 +148,7 @@ class Graphic(Controller):
 
     def graphic_logic(self):
         if self.new_wire != None and self.event == 1:
-            self.new_wire.update()
+            self.new_wire.update(True)
             
         if self.delete_timer > 0:
             self.delete_timer -= 1

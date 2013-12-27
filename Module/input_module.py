@@ -7,6 +7,8 @@ class Input(logicGate):
         self.port.append(Port((40,30),False))
         self.port[1].conn_wire = False
         self.margin = 10
+        self.reqr_real = False
+        self.port[0].real_input = True
         self.draw_image()
         self.rect = self.image.get_rect()
 
@@ -40,7 +42,7 @@ class Input(logicGate):
                 
     def move_update(self):
         for port in self.port:
-            port.update_req()
+            port.update_req(True)
 
     def draw_image(self):
         if self.status:
@@ -54,6 +56,8 @@ class Button(Input):
         self.port.append(Port((44,20),True)) #OUTPUT
         self.port.append(Port((20,20),False))
         self.port[1].conn_wire = False
+        self.reqr_real = False
+        self.port[0].real_input = True
         self.margin = 10
         self.draw_image()
         self.rect = self.image.get_rect()

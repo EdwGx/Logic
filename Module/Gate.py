@@ -4,6 +4,7 @@ class Port:
         self.multi = multi_connection #Multilple connection
         self.position = position
         self.status = False
+        self.real_input = False
         self.conn_wire = True
         self.conn_list = []
     def set_default_status(self):
@@ -19,12 +20,14 @@ class Port:
             if len(self.conn_list) == 1:
                 self.status = self.conn_list[0].status
 
-    def update_req(self):
+    def update_req(self,move=False):
         for wire in self.conn_list:
-            wire.update()
+            wire.update(move)
 
     def connect_wire(self,wire):
         self.conn_list.append(wire)
+        if not(self.multi):
+            self.real_input = wire.real_input
 
     def kill_wire(self):
         for wire in self.conn_list:
@@ -33,8 +36,13 @@ class Port:
         for wire in self.conn_list:
             wire.kill()
         self.conn_list = []
-            
 
+    def new_real_input(self,new):
+        if new != self.real_input:
+            self.real_input = new
+            for wire in self.conn_list:
+                wire.new_real_input(self.real_input)
+            
     def is_enough_wire(self):
         if self.conn_wire:
             if self.multi:
@@ -91,7 +99,15 @@ class logicGate(pygame.sprite.DirtySprite):
 
     def move_update(self):
         for port in self.port:
-            port.update_req()
+            port.update_req(True)
+
+    def update_real_input(self):
+        if self.dual_in and not(self.reqr_real):
+            self.port[0].new_real_input(self.port[1].real_input or self.port[2].real_input)
+        elif self.dual_in :
+            self.port[0].new_real_input(self.port[1].real_input and self.port[2].real_input)
+        else:
+            self.port[0].new_real_input(self.port[1].real_input)
             
 
 class Wire(pygame.sprite.DirtySprite):
@@ -99,20 +115,34 @@ class Wire(pygame.sprite.DirtySprite):
         pygame.sprite.DirtySprite.__init__(self)
         if port == 0:
             self.start_module = module
+            self.real_input = self.start_module.port[0].real_input
             self.start_port = 0
             self.start_module.port[self.start_port].connect_wire(self)
+            self.status = self.start_module.port[self.start_port].status
+                
             
             self.end_module = None
             self.end_port = None
         else:
             self.start_module = None
             self.start_port = None
+            self.real_input = False
+            self.status = False
             
             self.end_module = module
             self.end_port = port
             self.end_module.port[self.end_port].connect_wire(self)
-        self.status = False
+        self.reqr_real = True
+        self.get_graphic_info()
         self.draw_image()
+        
+    def new_real_input(self,new):
+        if new != self.real_input:
+            self.real_input = new
+            if self.end_module != None:
+                self.end_module.port[self.end_port].real_input = self.real_input
+                self.end_module.update_real_input()
+            
 
     def update_status(self,new_status):
         if new_status != self.status:
@@ -125,11 +155,13 @@ class Wire(pygame.sprite.DirtySprite):
             self.end_module.port[self.end_port].status = self.status
             self.end_module.update()
             
-    def update(self):
+    def update(self,move=False):
         if self.start_module == None:
             self.update_status(False)
         else:
             self.update_status(self.start_module.port[0].status)
+        if move:
+            self.get_graphic_info()
         self.draw_image()
 
     def kill(self):
@@ -141,6 +173,8 @@ class Wire(pygame.sprite.DirtySprite):
                 if self in self.end_module.port[self.end_port].conn_list: 
                     self.end_module.port[self.end_port].set_default_status()
                     self.end_module.port[self.end_port].conn_list.remove(self)
+                self.end_module.port[self.end_port].real_input = False
+                self.end_module.update_real_input()
                 self.end_module.update()
         pygame.sprite.DirtySprite.kill(self)
         
@@ -148,16 +182,19 @@ class Wire(pygame.sprite.DirtySprite):
     def connect_module(self,module,port):
         if port == 0:
             self.start_module = module
+            self.real_input = self.start_module.port[port].real_input
             self.start_port = port
         else:
             self.end_module = module
             self.end_port = port
+            self.end_module.port[port].status = self.status
+            self.end_module.port[port].real_input = self.real_input
+            self.end_module.update_real_input()
         module.port[port].connect_wire(self)
         module.update()
         self.update()
-        
-        
-    def draw_image(self):
+
+    def get_graphic_info(self):
         if (self.start_module == None) and (self.end_module == None):
             self.kill()
         else:
@@ -199,22 +236,27 @@ class Wire(pygame.sprite.DirtySprite):
             poi2 = (point1[0]-run-top[0],point1[1]+rai-top[1])
             poi3 = (point2[0]-run-top[0],point2[1]+rai-top[1])
             poi4 = (point2[0]+run-top[0],point2[1]-rai-top[1])
-                    
+            
             length = abs(point1[0] - point2[0])+ abs(run)*2
             width = abs(point1[1] - point2[1])+ abs(rai)*2
-
-            #Getting canves
-            self.image = pygame.Surface((length,width),flags=pygame.SRCALPHA)
-            self.image.convert_alpha()
-            self.rect = self.image.get_rect()
+            self.g_info = [poi1,poi2,poi3,poi4,length,width,top[0],top[1]]
+        
+    def draw_image(self):
+        #Getting canves
+        self.image = pygame.Surface((self.g_info[4],self.g_info[5]),flags=pygame.SRCALPHA)
+        self.image.convert_alpha()
+        self.rect = self.image.get_rect()
+        if self.real_input:
             if self.status:
                 #pygame.draw.aaline(self.image,color.green,poi2,poi3,2)
                 #pygame.draw.aaline(self.image,color.green,poi1,poi4,2)
-                pygame.draw.polygon(self.image,color.green, (poi1,poi2,poi3,poi4))
+                pygame.draw.polygon(self.image,color.green, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
             else:
                 #pygame.draw.aaline(self.image,color.black,poi2,poi3)
                 #pygame.draw.aaline(self.image,color.black,poi1,poi4)
-                pygame.draw.polygon(self.image,color.black, (poi1,poi2,poi3,poi4))
-            self.rect.x = top[0]
-            self.rect.y = top[1]
- 
+                pygame.draw.polygon(self.image,color.black, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
+        else:
+            pygame.draw.polygon(self.image,color.red, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
+            
+        self.rect.x = self.g_info[6]
+        self.rect.y = self.g_info[7]

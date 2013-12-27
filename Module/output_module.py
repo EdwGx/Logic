@@ -6,6 +6,8 @@ class Output(logicGate):
         self.port.append(Port((20,10),True)) #OUTPUT
         self.port.append(Port((20,54),False))
         self.port[0].conn_wire = False
+        self.reqr_real = False
+        self.real_input = False
         self.draw_image()
         self.rect = self.image.get_rect()
 
@@ -22,7 +24,7 @@ class Output(logicGate):
                 
     def move_update(self):
         for port in self.port:
-            port.update_req()
+            port.update_req(True)
 
     def draw_image(self):
         if self.status:
