@@ -4,7 +4,7 @@ import Logic,pygame.image,os.path
 class AND_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,1)
-        self.reqr_real = False
+        self.reqr_real = True
         self.image = pygame.image.load(os.path.join('Module','Resources','and_gate.png'))
         self.rect = self.image.get_rect()
         self.update()
@@ -56,7 +56,7 @@ class XOR_Gate(logicGate):
 class NAND_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,4)
-        self.reqr_real = False
+        self.reqr_real = True
         self.image = pygame.image.load(os.path.join('Module','Resources','nand_gate.png'))
         self.rect = self.image.get_rect()
         self.update()

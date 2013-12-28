@@ -142,6 +142,7 @@ class Wire(pygame.sprite.DirtySprite):
             if self.end_module != None:
                 self.end_module.port[self.end_port].real_input = self.real_input
                 self.end_module.update_real_input()
+            self.draw_image()
             
 
     def update_status(self,new_status):
@@ -182,14 +183,13 @@ class Wire(pygame.sprite.DirtySprite):
     def connect_module(self,module,port):
         if port == 0:
             self.start_module = module
-            self.real_input = self.start_module.port[port].real_input
             self.start_port = port
         else:
             self.end_module = module
             self.end_port = port
             self.end_module.port[port].status = self.status
-            self.end_module.port[port].real_input = self.real_input
-            self.end_module.update_real_input()
+            
+        self.new_real_input(self.start_module.port[self.start_port].real_input)
         module.port[port].connect_wire(self)
         module.update()
         self.update()
@@ -248,12 +248,8 @@ class Wire(pygame.sprite.DirtySprite):
         self.rect = self.image.get_rect()
         if self.real_input:
             if self.status:
-                #pygame.draw.aaline(self.image,color.green,poi2,poi3,2)
-                #pygame.draw.aaline(self.image,color.green,poi1,poi4,2)
                 pygame.draw.polygon(self.image,color.green, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
             else:
-                #pygame.draw.aaline(self.image,color.black,poi2,poi3)
-                #pygame.draw.aaline(self.image,color.black,poi1,poi4)
                 pygame.draw.polygon(self.image,color.black, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
         else:
             pygame.draw.polygon(self.image,color.red, (self.g_info[0],self.g_info[1],self.g_info[2],self.g_info[3]))
