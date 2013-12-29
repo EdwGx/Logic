@@ -76,9 +76,9 @@ The Truth Table of Logic Gates
 Plan Features
 -------------
 * Change logic gates images `In Progress`   
-* Better GUI `In Progress`
+* Better GUI
 * ~~Add logic gates freely~~   
 * ~~Add wires freely~~ 
 * ~~More Input Devices (Switch and Button)~~
-* More Output Devices  (1 so far) `Later, not now`
+* ~~More Output Devices  (light bulb)~~
 * Make an object-c app with SpriteKit  
