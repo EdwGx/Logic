@@ -132,6 +132,7 @@ class Wire(pygame.sprite.DirtySprite):
             self.end_module = module
             self.end_port = port
             self.end_module.port[self.end_port].connect_wire(self)
+            
         self.reqr_real = True
         self.get_graphic_info()
         self.draw_image()
@@ -184,12 +185,15 @@ class Wire(pygame.sprite.DirtySprite):
         if port == 0:
             self.start_module = module
             self.start_port = port
+            self.new_real_input(self.start_module.port[self.start_port].real_input)
         else:
             self.end_module = module
             self.end_port = port
             self.end_module.port[port].status = self.status
+            self.end_module.port[port].real_input = self.real_input
+            self.end_module.update_real_input()
             
-        self.new_real_input(self.start_module.port[self.start_port].real_input)
+            
         module.port[port].connect_wire(self)
         module.update()
         self.update()
