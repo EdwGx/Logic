@@ -1,5 +1,5 @@
 from lib import select_sprite,snap_to_port,get_dis_nsqrt
-import pygame.image,os.path,sys
+import pygame.image,pygame.sprite,os.path,sys
 sys.path.append("..")
 from Module.Gate import Wire
 from Module import Logic_Gates,input_module,output_module
@@ -24,12 +24,13 @@ class Graphic(Controller):
         #Delete Corner
         self.draw_delc = False
         self.draw_delc2 = False
+        self.draw_dels = False
         self.draw_delc_delay = 0
         self.draw_delc_p = 0
         self.delc_pic =[pygame.image.load(os.path.join('UI','Resources','delete_corner1.png')),
                     pygame.image.load(os.path.join('UI','Resources','delete_corner2.png'))]
         self.delc_pic2 = pygame.image.load(os.path.join('UI','Resources','Selection_bar_del.png'))
-                    
+        self.dels_pic = pygame.image.load(os.path.join('UI','Resources','delete_side.png'))                   
         #Drag
         self.drag_module = None
         self.drag_mPos = (0,0)
@@ -66,7 +67,14 @@ class Graphic(Controller):
                 self.double_click = True
                 
         elif self.event == 2:
-            if get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
+            self.snap_to_side()
+            if self.drag_module.rect.centery <= 0:
+                self.drag_module.kill()
+            elif self.drag_module.rect.centery >= 600:
+                self.drag_module.kill()
+            elif self.drag_module.rect.centerx >= 900:
+                self.drag_module.kill()
+            elif get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
                 self.drag_module.kill()
             elif self.drag_module.rect.left <= 140:
                 self.drag_module.kill()
@@ -74,7 +82,14 @@ class Graphic(Controller):
             self.drag_module = None
             self.drag_mPos = (0,0)
         elif self.event == 3:
-            if get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
+            self.snap_to_side()
+            if self.drag_module.rect.centery <= 0:
+                self.drag_module.kill()
+            elif self.drag_module.rect.centery >= 600:
+                self.drag_module.kill()
+            elif self.drag_module.rect.centerx >= 900:
+                self.drag_module.kill()
+            elif get_dis_nsqrt(self.drag_module.rect.center,(900,600)) < 10000:
                 self.drag_module.kill()
             elif self.drag_module.rect.left <= 140:
                 self.drag_module.kill()
@@ -87,6 +102,61 @@ class Graphic(Controller):
         if len(select_sprites) > 0:
             if select_sprites[-1].__class__.__name__ == 'Button':
                 select_sprites[-1].mouse_up()
+
+    def snap_to_side(self):
+        overlap_modules = pygame.sprite.spritecollide(self.drag_module,self.gates_group,False)
+        overlap_modules.remove(self.drag_module)
+        if len(overlap_modules) <= 0:
+            return False
+        elif len(overlap_modules) > 1:
+            print('Error:Multiple items overlap file:controller.py method:snap_to_side')
+            return False
+            
+        overlap_module = overlap_modules[0]
+        center_pos = self.drag_module.rect.center
+        
+        if (center_pos[0] >= overlap_module.rect.left and
+            center_pos[0] <= overlap_module.rect.right):
+            if center_pos[1] > overlap_module.rect.centery:
+                self.drag_module.rect.top = overlap_module.rect.bottom + 5
+                return True
+            else:
+                self.drag_module.rect.bottom = overlap_module.rect.top - 5
+                return True
+            
+        elif (center_pos[1] >= overlap_module.rect.top and
+            center_pos[1] <= overlap_module.rect.bottom):
+            if center_pos[0] > overlap_module.rect.centerx:
+                self.drag_module.rect.left = overlap_module.rect.right+ 5
+                return True
+            else:
+                self.drag_module.rect.right = overlap_module.rect.left - 5
+                return True
+
+        elif center_pos[0] >= overlap_module.rect.right:
+            if center_pos[1] > overlap_module.rect.centery:
+                self.drag_module.rect.top = overlap_module.rect.bottom + 5
+                self.drag_module.rect.left = overlap_module.rect.right + 5
+                return True
+            else:
+                self.drag_module.rect.bottom = overlap_module.rect.top - 5
+                self.drag_module.rect.left = overlap_module.rect.right + 5
+                return True
+
+        elif center_pos[0] <= overlap_module.rect.left:
+            if center_pos[1] > overlap_module.rect.centery:
+                self.drag_module.rect.top = overlap_module.rect.bottom + 5
+                self.drag_module.rect.right = overlap_module.rect.left - 5
+                return True
+            else:
+                self.drag_module.rect.bottom = overlap_module.rect.top - 5
+                self.drag_module.rect.right = overlap_module.rect.left - 5
+                return True
+
+        else:
+            print('Error: Unexpected Condition  file:controller.py method:snap_to_side')
+            return False            
+                    
             
 
     def click_on_delete(self):
@@ -169,6 +239,22 @@ class Graphic(Controller):
 
             if self.drag_module.rect.left < 140 and self.event == 2:
                 self.draw_delc2 = True
+
+            if self.drag_module.rect.centery <= 0:
+                self.draw_delc_p = 1
+                self.draw_delc = True
+                self.draw_delc2 = True
+                self.draw_dels = True
+            elif self.drag_module.rect.centery >= 600:
+                self.draw_delc_p = 1
+                self.draw_delc = True
+                self.draw_delc2 = True
+                self.draw_dels = True
+            elif self.drag_module.rect.centerx >= 900:
+                self.draw_delc_p = 1
+                self.draw_delc = True
+                self.draw_delc2 = True
+                self.draw_dels = True
                 
             relx = mouse_pos[0] - self.drag_mPos[0]
             rely = mouse_pos[1] - self.drag_mPos[1]
@@ -183,6 +269,10 @@ class Graphic(Controller):
             
 
     def draw_buttom_layer(self,surface):
+        if self.draw_dels:
+            self.draw_dels = False
+            surface.blit(self.dels_pic,(0,0))
+            
         if self.draw_delc:
             self.draw_delc = False
             surface.blit(self.delc_pic[self.draw_delc_p] ,(800,500))
@@ -190,6 +280,7 @@ class Graphic(Controller):
         if self.draw_delc2:
             self.draw_delc2 = False
             surface.blit(self.delc_pic2,(0,0))
+
             
     def draw_top_layer(self,surface):
         #Delete Icon
