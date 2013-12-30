@@ -26,6 +26,11 @@ while done == False:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_s:
                 fileIO.save(gates_group,wires_group)
+            elif event.key == pygame.K_l:
+                fileIO.load(gates_group,wires_group)
+            elif event.key == pygame.K_k:
+                gates_group.empty()
+                wires_group.empty()
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if event.button == 1 and mouse_pos[0] > 140:

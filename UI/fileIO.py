@@ -1,4 +1,8 @@
-import os.path
+import os.path,sys
+sys.path.append("..")
+from Module.Gate import Wire
+from Module import Logic_Gates,input_module,output_module
+
 def save(gate_group,wire_group):
     save_list = []
     for g in gate_group:
@@ -47,6 +51,73 @@ def save(gate_group,wire_group):
         f.write(s+'\n')
     f.close()
     del print_list
+
+def load(gate_group,wire_group):
+    gate_group.empty()
+    wire_group.empty()
+    path = os.path.join('UI','Save','logic.save')
+    f = open(path,'r')
+    read_list = f.readlines()
+    load_list = []
+    f.close()
+    #Convert string in the file to array
+    for i in range(len(read_list)):
+        
+        li = read_list[i].rstrip().split(" ")
+        for j in range(len(li)):
+            if li[j] != 'n':
+                li[j] = int(li[j])
+        read_list[i] = li
+
+    for i in read_list:
+        module = get_module(i[0])
+        module.rect.x = i[1]
+        module.rect.y = i[2]
+        if i[0] == 8:
+            if i[3] == 1:
+                module.status = True
+        load_list.append(module)
+        gate_group.add(module)
+
+    for i in range(len(read_list)):
+        for j in range(read_list[i][4]):
+            j += 1
+            mod_indx = read_list[i][(j*2+3)]
+            if mod_indx != 'n':
+                port = read_list[i][(j*2+4)]
+                new_wire = Wire(load_list[i],j)
+                wire_group.add(new_wire)
+                new_wire.connect_module(load_list[mod_indx],port)
+                new_wire.get_graphic_info()
+                new_wire.draw_image()
+                
+    del read_list
+    del load_list
+            
+def get_module(module_type):
+    if module_type == 1:
+        new_module = Logic_Gates.AND_Gate()
+    elif module_type == 2:
+        new_module = Logic_Gates.OR_Gate()
+    elif module_type == 3:
+        new_module = Logic_Gates.XOR_Gate()
+    elif module_type == 4:
+        new_module = Logic_Gates.NAND_Gate()
+    elif module_type == 5:
+        new_module = Logic_Gates.NOR_Gate()
+    elif module_type == 6:
+        new_module = Logic_Gates.XNOR_Gate()
+    elif module_type == 7:
+        new_module = Logic_Gates.NOT_Gate()
+    elif module_type == 8:
+        new_module = input_module.Input()
+    elif module_type == 9:
+        new_module = input_module.Button()
+    elif module_type == 10:
+        new_module = output_module.Output()
+        
+    return new_module
+        
 
         
                 
