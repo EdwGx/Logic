@@ -29,9 +29,9 @@ Plan Features
 
 Save File
 ---------
-| 0    | 1 | 2 | 3      | 4                 | 5                       | 6                     | ...                       | ...                     |
-|:----:|:-:|:-:|:------:|:-----------------:|:-----------------------:|:---------------------:|:-------------------------:|:-----------------------:|
-| Type | X | Y | Status | Number of In Port | Connect Module (Port 1) | Connect Port (Port 1) | Connect Module (Port ...) | Connect Port (Port ...) |
+| 0    | 1 | 2 | 3      | 4                 | ...                       | ...                     |
+|:----:|:-:|:-:|:------:|:-----------------:|:-------------------------:|:-----------------------:|
+| Type | X | Y | Status | Number of In Port | Connect Module (Port ...) | Connect Port (Port ...) |
 
 
 The Truth Table of Logic Gates
