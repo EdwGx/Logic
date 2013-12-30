@@ -5,7 +5,7 @@ sys.path.append("..")
 class SideBar:
     def __init__(self,graphic_controller):
         #Define
-        self.space = 40
+        self.space = 50
         self.speed = 8
         self.height = 600
         self.disply_list = []
@@ -15,12 +15,12 @@ class SideBar:
         #Add game elements/module
         #1-7:Gates,8:Switch
         self.waiting_list.append([1,load_image('and_gate.png')])
-        self.waiting_list.append([2,load_image('or_gate.png')])
-        self.waiting_list.append([3,load_image('xor_gate.png')])
-        self.waiting_list.append([4,load_image('not_gate.png')])
         self.waiting_list.append([5,load_image('nand_gate.png')])
+        self.waiting_list.append([2,load_image('or_gate.png')])
         self.waiting_list.append([6,load_image('nor_gate.png')])
+        self.waiting_list.append([3,load_image('xor_gate.png')])
         self.waiting_list.append([7,load_image('xnor_gate.png')])
+        self.waiting_list.append([4,load_image('not_gate.png')])
         self.waiting_list.append([8,load_image('switch_off.png')])
         self.waiting_list.append([9,load_image('button_off.png')])
         self.waiting_list.append([10,load_image('bulb_off.png')])
