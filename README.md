@@ -1,6 +1,6 @@
 Logic
 =====
-Open Source Logic Simulator With [Pygame](http://www.pygame.org/wiki/about)
+Open Source [Logic Gate](http://en.wikipedia.org/wiki/Logic_gate) Simulator With [Pygame](http://www.pygame.org/wiki/about)
 
 How to install?
 --------------------
@@ -17,9 +17,10 @@ Example
    
 Plan Features
 -------------
+* Drag multiple items at once
+* Save and Load
 * ~~Better logic gates images~~
-* Labels on sidebar `in progress`
-* Better GUI
+* ~~Labels on sidebar~~
 * ~~Add logic gates freely~~   
 * ~~Add wires freely~~ 
 * ~~More Input Devices (Switch and Button)~~
