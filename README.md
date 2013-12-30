@@ -27,6 +27,13 @@ Plan Features
 * ~~More Output Devices  (light bulb)~~
 * Make an object-c app with SpriteKit  
 
+Save File
+---------
+| 0    | 1 | 2 | 3      | 4                 | 5                       | 6                     | ...                       | ...                     |
+|:----:|:-:|:-:|:------:|:-----------------:|:-----------------------:|:---------------------:|:-------------------------:|:-----------------------:|
+| Type | X | Y | Status | Number of In Port | Connect Module (Port 1) | Connect Port (Port 1) | Connect Module (Port ...) | Connect Port (Port ...) |
+
+
 The Truth Table of Logic Gates
 ------------------------------
 ###AND Gate   
