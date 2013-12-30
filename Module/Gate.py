@@ -25,9 +25,13 @@ class Port:
             wire.update(move)
 
     def connect_wire(self,wire):
-        self.conn_list.append(wire)
-        if not(self.multi):
-            self.real_input = wire.real_input
+        return_bool = self.check_same_wire(wire)
+        if return_bool:
+            self.conn_list.append(wire)
+            if not(self.multi):
+                self.real_input = wire.real_input
+        else:
+            wire.kill()
 
     def kill_wire(self):
         for wire in self.conn_list:
@@ -53,6 +57,22 @@ class Port:
                 return False
         else:
             return False
+        
+    def check_same_wire(self,wire):
+        if self.multi:
+            if wire.end_module != None :
+                for e in self.conn_list:
+                    if (e.end_module == wire.end_module and
+                        e.end_port == wire.end_port):
+                        return False
+        else:
+            if wire.start_module != None :
+                for e in self.conn_list:
+                    if (e.start_module == wire.start_module and
+                        e.start_port == wire.start_port):
+                        return False
+        return True
+        
 
         
 
@@ -117,12 +137,12 @@ class Wire(pygame.sprite.DirtySprite):
             self.start_module = module
             self.real_input = self.start_module.port[0].real_input
             self.start_port = 0
-            self.start_module.port[self.start_port].connect_wire(self)
-            self.status = self.start_module.port[self.start_port].status
-                
             
             self.end_module = None
             self.end_port = None
+            
+            self.start_module.port[self.start_port].connect_wire(self)
+            self.status = self.start_module.port[self.start_port].status
         else:
             self.start_module = None
             self.start_port = None

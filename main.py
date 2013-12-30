@@ -1,5 +1,5 @@
 import pygame
-from UI import color,controller,sidebar
+from UI import color,controller,sidebar,fileIO
 from UI.lib import snap_to_port
 
 #----Engine and Base Code----
@@ -23,6 +23,9 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_s:
+                fileIO.save(gates_group,wires_group)
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if event.button == 1 and mouse_pos[0] > 140:
