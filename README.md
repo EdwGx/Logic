@@ -10,6 +10,22 @@ How to install?
       
 3.Run the main.py in python with pygame.
 
+Example
+--------
+###1-Bit Full Adder
+![alt tag](http://i.imgur.com/yMtgiHK.png)    
+   
+Plan Features
+-------------
+* ~~Better logic gates images~~
+* Labels on sidebar `in progress`
+* Better GUI
+* ~~Add logic gates freely~~   
+* ~~Add wires freely~~ 
+* ~~More Input Devices (Switch and Button)~~
+* ~~More Output Devices  (light bulb)~~
+* Make an object-c app with SpriteKit  
+
 The Truth Table of Logic Gates
 ------------------------------
 ###AND Gate   
@@ -72,13 +88,3 @@ The Truth Table of Logic Gates
 | 0 | 1 | 0 |
 | 1 | 0 | 0 |
 | 1 | 1 | 1 |
-
-Plan Features
--------------
-* Change logic gates images `In Progress`   
-* Better GUI
-* ~~Add logic gates freely~~   
-* ~~Add wires freely~~ 
-* ~~More Input Devices (Switch and Button)~~
-* ~~More Output Devices  (light bulb)~~
-* Make an object-c app with SpriteKit  
