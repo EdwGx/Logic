@@ -1,4 +1,4 @@
-import os.path,sys
+import os,sys
 sys.path.append("..")
 from Module.Gate import Wire
 from Module import Logic_Gates,input_module,output_module
@@ -115,6 +115,21 @@ def get_module(module_type):
         new_module = output_module.Output()
         
     return new_module
+
+def check_file():
+    #check /Temp
+    path = os.path.join('UI','Temp')
+    if not(os.path.exists(path)):
+        os.makedirs(path)
+    #chek /Save
+    path = os.path.join('UI','Save')
+    if not(os.path.exists(path)):
+        os.makedirs(path)
+        for i in range(9):
+            f = open((os.path.join('UI','Save',('logic%d.save'% i))),'w')
+            f.write('E')
+            f.close()
+        
         
 
         
