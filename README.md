@@ -20,7 +20,7 @@ Plan Features
 * Drag multiple items at once
 * Move items in larger map `in progress`
 * Zoom in and zoom out
-* Save&Load menu `in progress`
+* ~~Save&Load menu~~
 * ~~Save and Load~~
 * ~~Better logic gates images~~
 * ~~Labels on sidebar~~
