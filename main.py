@@ -61,11 +61,14 @@ while done == False:
                     elif ops[0] == 3:
                         fileIO.load(ops[1],gates_group,wires_group)
                 else:
-                    if (mouse_pos[0] > 800) and (mouse_pos[1] < 20):
-                        file_controller.open_menu(mouse_pos)
+                    if gaphic_controller.event == 0:
+                        if(mouse_pos[0] > 800) and (mouse_pos[1] < 40):
+                           file_controller.open_menu(mouse_pos)
                     else:
                         gaphic_controller.mouse_up(mouse_pos)
     #Game&Graphic Logic
+    if file_controller.draw_menu:
+        file_controller.graphic_logic()
     gaphic_controller.graphic_logic()
     #Draw
     screen.fill((200,200,200))
