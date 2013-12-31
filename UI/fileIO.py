@@ -3,7 +3,7 @@ sys.path.append("..")
 from Module.Gate import Wire
 from Module import Logic_Gates,input_module,output_module
 
-def save(gate_group,wire_group):
+def save(path,gate_group,wire_group):
     save_list = []
     for g in gate_group:
         save_list.append(g)
@@ -44,7 +44,6 @@ def save(gate_group,wire_group):
         
     del save_list
     #Write on the file
-    path = os.path.join('UI','Save','logic.save')
     f = open(path,'w')
     for i in print_list:
         s = ' '.join(i)
@@ -52,10 +51,9 @@ def save(gate_group,wire_group):
     f.close()
     del print_list
 
-def load(gate_group,wire_group):
+def load(path,gate_group,wire_group):
     gate_group.empty()
     wire_group.empty()
-    path = os.path.join('UI','Save','logic.save')
     f = open(path,'r')
     read_list = f.readlines()
     load_list = []

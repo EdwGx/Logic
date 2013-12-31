@@ -38,6 +38,7 @@ class Graphic(Controller):
         #Group
         self.gates_group = gates_group
         self.wires_group = wires_group
+
         #0:Nothing ; 1:Controlling wire
         #2:Draging module; 3:Draging new module;
     def mouse_down(self,pos):
@@ -155,8 +156,8 @@ class Graphic(Controller):
 
         else:
             print('Error: Unexpected Condition  file:controller.py method:snap_to_side')
-            return False            
-                    
+            return False
+
             
 
     def click_on_delete(self):
@@ -266,6 +267,7 @@ class Graphic(Controller):
                 self.draw_delc = True
             else:
                 self.draw_delc_delay -= 1
+
             
 
     def draw_buttom_layer(self,surface):
