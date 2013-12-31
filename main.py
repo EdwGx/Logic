@@ -13,6 +13,9 @@ pygame.display.set_caption("My Game")
 gaphic_frames = 60
 gates_group = pygame.sprite.LayeredUpdates()
 wires_group = pygame.sprite.Group()
+
+fileIO.check_file()
+
 gaphic_controller = controller.Graphic(gates_group,wires_group)
 selection_controller = sidebar.SideBar(gaphic_controller)
 file_controller = filemenu.FileMenu()
