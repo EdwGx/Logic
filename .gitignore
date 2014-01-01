@@ -1,7 +1,8 @@
 *.py[cod]
 
-# Save File
+# Save & Temp File
 Save/
+Temp/
 
 # C extensions
 *.so
