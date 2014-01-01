@@ -65,7 +65,7 @@ while done == False:
                         fileIO.load(ops[1],gates_group,wires_group)
                 else:
                     if gaphic_controller.event == 0:
-                        if(mouse_pos[0] > 800) and (mouse_pos[1] < 40):
+                        if(mouse_pos[0] > 760) and (mouse_pos[1] < 36):
                            file_controller.open_menu(mouse_pos)
                     else:
                         gaphic_controller.mouse_up(mouse_pos)
@@ -74,7 +74,7 @@ while done == False:
         file_controller.graphic_logic()
     gaphic_controller.graphic_logic()
     #Draw
-    screen.fill((200,200,200))
+    screen.fill((149,165,166))
     gaphic_controller.draw_buttom_layer(screen)
     selection_controller.draw(screen)
     wires_group.draw(screen)

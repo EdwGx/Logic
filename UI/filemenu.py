@@ -55,6 +55,9 @@ class FileMenu:
                     if self.current != i:
                         self.current = i
                         self.redraw_menu()
+                    else:
+                        self.current = None
+                        self.redraw_menu()
                     return (0,None)
                     
                 elif i == 9 and self.current != None:
@@ -98,9 +101,14 @@ class FileMenu:
         shadow_image = pygame.image.load(os.path.join('UI','Resources','shadow.png'))
         shadow_rect = shadow_image.get_rect()
 
+        dark = pygame.Surface((152,120))
+        dark.fill((255,255,255))
+        dark.set_alpha(210)
+        
         for i in range(9):
             if self.files_status[i]:
                 path = os.path.join('UI','Save',('shot%d.png'% i))
+                self.draw_surface.blit(dark,self.image_pos[i])
             else:
                 path = os.path.join('UI','Resources','unknow.png')
                 
