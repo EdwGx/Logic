@@ -13,7 +13,7 @@ class FileMenu:
         self.current = None
         self.hover = None
         #Graphic
-        self.alpha = 200
+        self.alpha = 180
         self.space = 20
         self.b_height = 40
 
@@ -127,17 +127,17 @@ class FileMenu:
                 
                 
         image = pygame.image.load(os.path.join('UI','Resources','button_save.png'))
-        if 9 == self.hover:
+        if 9 != self.hover:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[9])
         
         image = pygame.image.load(os.path.join('UI','Resources','button_cancel.png'))
-        if 10 == self.hover:
+        if 10 != self.hover:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[10])
 
         image = pygame.image.load(os.path.join('UI','Resources','button_load.png'))
-        if 11 == self.hover:
+        if 11 != self.hover:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[11])
 

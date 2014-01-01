@@ -1,4 +1,4 @@
-import pygame
+import pygame,os.path
 from UI import color,controller,sidebar,fileIO,filemenu
 from UI.lib import snap_to_port
 
@@ -13,6 +13,7 @@ pygame.display.set_caption("My Game")
 gaphic_frames = 60
 gates_group = pygame.sprite.LayeredUpdates()
 wires_group = pygame.sprite.Group()
+background = pygame.image.load(os.path.join('UI','Resources','background.png'))
 
 fileIO.check_file()
 
@@ -27,21 +28,7 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_s:
-                fileIO.save(gates_group,wires_group)
-            elif event.key == pygame.K_l:
-                fileIO.load(gates_group,wires_group)
-            elif event.key == pygame.K_k:
-                gates_group.empty()
-                wires_group.empty()
-            elif event.key == pygame.K_c:
-                screenshot = pygame.Surface((760,600))
-                screenshot.blit(screen,(0,0),(140,0,760,600))
-                screenshot = pygame.transform.smoothscale(screenshot,(152,120))
-                pygame.image.save(screenshot,'shot.png')
-                
-                
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
             if not(file_controller.block_mouse):
@@ -74,7 +61,7 @@ while done == False:
         file_controller.graphic_logic()
     gaphic_controller.graphic_logic()
     #Draw
-    screen.fill((149,165,166))
+    screen.blit(background,(0,0))
     gaphic_controller.draw_buttom_layer(screen)
     selection_controller.draw(screen)
     wires_group.draw(screen)

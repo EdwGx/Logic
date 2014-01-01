@@ -69,6 +69,7 @@ class Graphic(Controller):
                 
         elif self.event == 2:
             self.snap_to_side()
+            self.snap_to_point()
             if self.drag_module.rect.centery <= 0:
                 self.drag_module.kill()
             elif self.drag_module.rect.centery >= 600:
@@ -84,6 +85,7 @@ class Graphic(Controller):
             self.drag_mPos = (0,0)
         elif self.event == 3:
             self.snap_to_side()
+            self.snap_to_point()
             if self.drag_module.rect.centery <= 0:
                 self.drag_module.kill()
             elif self.drag_module.rect.centery >= 600:
@@ -104,13 +106,38 @@ class Graphic(Controller):
             if select_sprites[-1].__class__.__name__ == 'Button':
                 select_sprites[-1].mouse_up()
 
+    def snap_to_point(self):
+        disx = (self.drag_module.rect.centerx + 30)%60
+        if disx > 30:
+            relx = 60 - disx
+        else:
+            relx = disx
+
+        disy = (self.drag_module.rect.centery + 30)%60
+        if disy > 30:
+            rely = 60 - disy
+        else:
+            rely = disy
+            
+        dis = get_dis_nsqrt((relx,rely),(0,0))
+        
+        if dis <= 100:
+            if disx > 30:
+                self.drag_module.rect.centerx += relx
+            else:
+                self.drag_module.rect.centerx -= relx
+
+            if disy > 30:
+                self.drag_module.rect.centery += rely
+            else:
+                self.drag_module.rect.centery -= rely
+
     def snap_to_side(self):
         overlap_modules = pygame.sprite.spritecollide(self.drag_module,self.gates_group,False)
         overlap_modules.remove(self.drag_module)
         if len(overlap_modules) <= 0:
             return False
         elif len(overlap_modules) > 1:
-            print('Error:Multiple items overlap file:controller.py method:snap_to_side')
             return False
             
         overlap_module = overlap_modules[0]
