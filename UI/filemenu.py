@@ -103,8 +103,7 @@ class FileMenu:
 
         dark = pygame.Surface((152,120))
         dark.fill((255,255,255))
-        dark.set_alpha(210)
-        
+        dark.set_alpha(200)
         for i in range(9):
             if self.files_status[i]:
                 path = os.path.join('UI','Save',('shot%d.png'% i))
@@ -127,7 +126,7 @@ class FileMenu:
                 
                 
         image = pygame.image.load(os.path.join('UI','Resources','button_save.png'))
-        if 9 != self.hover:
+        if 9 != self.hover or self.current == None:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[9])
         
@@ -137,7 +136,7 @@ class FileMenu:
         self.draw_surface.blit(image,self.image_pos[10])
 
         image = pygame.image.load(os.path.join('UI','Resources','button_load.png'))
-        if 11 != self.hover:
+        if 11 != self.hover or self.current == None or not(self.files_status[self.current]):
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[11])
 

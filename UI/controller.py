@@ -80,6 +80,7 @@ class Graphic(Controller):
                 self.drag_module.kill()
             elif self.drag_module.rect.left <= 140:
                 self.drag_module.kill()
+            self.drag_module.move_update()
             self.event = 0
             self.drag_module = None
             self.drag_mPos = (0,0)
@@ -96,6 +97,7 @@ class Graphic(Controller):
                 self.drag_module.kill()
             elif self.drag_module.rect.left <= 140:
                 self.drag_module.kill()
+            self.drag_module.move_update()
             self.side_bar.new_module_stop(self.new_type)
             self.event = 0
             self.drag_module = None
