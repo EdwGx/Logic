@@ -17,9 +17,7 @@ Example
    
 Plan Features
 -------------
-* Drag multiple items at once
-* Move items in larger map `in progress`
-* Zoom in and zoom out `later`
+* Drag multiple items at once `in progress`
 * ~~Save&Load menu~~
 * ~~Save and Load~~
 * ~~Better logic gates images~~
