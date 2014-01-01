@@ -19,7 +19,7 @@ Plan Features
 -------------
 * Drag multiple items at once
 * Move items in larger map `in progress`
-* Zoom in and zoom out
+* Zoom in and zoom out `later`
 * ~~Save&Load menu~~
 * ~~Save and Load~~
 * ~~Better logic gates images~~
@@ -36,6 +36,10 @@ Save File
 |:----:|:-:|:-:|:------:|:-----------------:|:-------------------------:|:-----------------------:|
 | Type | X | Y | Status | Number of In Port | Connect Module (Port ...) | Connect Port (Port ...) |
 
+##### New
+| 0 |
+|:-:|
+| E |
 
 The Truth Table of Logic Gates
 ------------------------------
