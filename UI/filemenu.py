@@ -70,7 +70,7 @@ class FileMenu:
                     self.block_mouse = False
                     return (1,None)
                 
-                elif i == 11 and self.current != None and  self.files_status[self.current]
+                elif i == 11 and self.current != None and  self.files_status[self.current]:
                     path = os.path.join('UI','Save',('logic%d.save'% self.current))
                     self.draw_menu = False
                     self.block_mouse = False
