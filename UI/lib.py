@@ -60,7 +60,6 @@ def snap_to_port(gates_group,wire,pos):
         #Tell wire the port
         wire.connect_module(closest_gate,closest_port)
 
-
 def select_sprite (gates_group,pos,controller):
     select_sprites = gates_group.get_sprites_at(pos)
     number = len(select_sprites)-1
