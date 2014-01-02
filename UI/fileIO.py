@@ -4,6 +4,12 @@ from Module.Gate import Wire
 from Module import Logic_Gates,input_module,output_module
 
 def save(path,gate_group,wire_group):
+    if len(gate_group) == 0:
+        f = open(path,'w')
+        f.write('E')
+        f.close()
+        return False
+        
     save_list = []
     for g in gate_group:
         save_list.append(g)
@@ -125,11 +131,21 @@ def check_file():
     path = os.path.join('UI','Save')
     if not(os.path.exists(path)):
         os.makedirs(path)
-        for i in range(9):
-            f = open((os.path.join('UI','Save',('logic%d.save'% i))),'w')
+    for i in range(9):
+        path = os.path.join('UI','Save',('logic%d.save'% i))
+        if not(os.path.exists(path)):
+            f = open(path,'w')
             f.write('E')
             f.close()
-        
+        else:
+            f = open(path,'r')
+            image_path = os.path.join('UI','Save',('shot%d.png'% i))
+            if f.read(1) == '' or not(os.path.exists(image_path)):
+                f.close()
+                f = open(path,'w')
+                f.write('E')
+            f.close()
+    
         
 
         

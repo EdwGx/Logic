@@ -1,4 +1,4 @@
-import pygame,os.path,shutil
+import pygame,os,shutil,fileIO
 class FileMenu:
     def __init__(self):
         self.draw_menu = False
@@ -43,6 +43,7 @@ class FileMenu:
         self.current = None
         self.hover = None
         self.block_mouse = True
+        fileIO.check_file
         self.update_file()
         self.redraw_menu()
         self.screen_shot = True
@@ -69,11 +70,17 @@ class FileMenu:
                     return (2,path)
                 
                 elif i == 10:
+                    path = os.path.join('UI','Temp','screen_shot.png')
+                    if os.path.exists(path):
+                        os.remove(path)
                     self.draw_menu = False
                     self.block_mouse = False
                     return (1,None)
                 
                 elif i == 11 and self.current != None and  self.files_status[self.current]:
+                    path = os.path.join('UI','Temp','screen_shot.png')
+                    if os.path.exists(path):
+                        os.remove(path)
                     path = os.path.join('UI','Save',('logic%d.save'% self.current))
                     self.draw_menu = False
                     self.block_mouse = False

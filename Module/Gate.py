@@ -216,7 +216,7 @@ class Wire(pygame.sprite.DirtySprite):
             
         module.port[port].connect_wire(self)
         module.update()
-        self.update()
+        self.update(True)
 
     def get_graphic_info(self):
         if (self.start_module == None) and (self.end_module == None):
