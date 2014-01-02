@@ -17,7 +17,7 @@ Example
    
 Plan Features
 -------------
-* Drag multiple items at once `in progress`
+* Better performance `in progress`
 * ~~Save&Load menu~~
 * ~~Save and Load~~
 * ~~Better logic gates images~~
