@@ -34,7 +34,7 @@ Save File
 |:----:|:-:|:-:|:------:|:-----------------:|:-------------------------:|:-----------------------:|
 | Type | X | Y | Status | Number of In Port | Connect Module (Port ...) | Connect Port (Port ...) |
 
-##### New
+##### New or Empty
 | 0 |
 |:-:|
 | E |
