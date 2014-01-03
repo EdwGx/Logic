@@ -6,7 +6,10 @@ from UI.lib import snap_to_port
 pygame.init()
 size = [900,600]
 screen = pygame.display.set_mode(size)
-pygame.display.set_caption("My Game")
+pygame.display.set_caption("Logic")
+pygame.event.set_allowed([pygame.QUIT,pygame.KEYDOWN,
+                          pygame.MOUSEBUTTONDOWN,pygame.MOUSEBUTTONUP])
+
 
 
 #----Define----
