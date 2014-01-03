@@ -17,7 +17,7 @@ Example
    
 Plan Features
 -------------
-* Better performance `in progress`
+* ~~Better performance(60fps)~~
 * ~~Save&Load menu~~
 * ~~Save and Load~~
 * ~~Better logic gates images~~
