@@ -268,7 +268,7 @@ class Wire(pygame.sprite.DirtySprite):
     def draw_image(self):
         #Getting canves
         self.image = pygame.Surface((self.g_info[4],self.g_info[5]),flags=pygame.SRCALPHA)
-        self.image.convert_alpha()
+        self.image = self.image.convert_alpha()
         self.rect = self.image.get_rect()
         if self.real_input:
             if self.status:

@@ -46,9 +46,9 @@ class Input(logicGate):
 
     def draw_image(self):
         if self.status:
-            self.image = pygame.image.load(os.path.join('Module','Resources','switch_on.png'))
+            self.image = pygame.image.load(os.path.join('Module','Resources','switch_on.png')).convert_alpha()
         else:
-            self.image = pygame.image.load(os.path.join('Module','Resources','switch_off.png'))
+            self.image = pygame.image.load(os.path.join('Module','Resources','switch_off.png')).convert_alpha()
 
 class Button(Input):
     def __init__(self):
@@ -83,7 +83,7 @@ class Button(Input):
         
     def draw_image(self):
         if self.status:
-            self.image = pygame.image.load(os.path.join('Module','Resources','button_on.png'))
+            self.image = pygame.image.load(os.path.join('Module','Resources','button_on.png')).convert_alpha()
         else:
-            self.image = pygame.image.load(os.path.join('Module','Resources','button_off.png'))
+            self.image = pygame.image.load(os.path.join('Module','Resources','button_off.png')).convert_alpha()
         

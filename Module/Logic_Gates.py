@@ -5,7 +5,7 @@ class AND_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,1)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','and_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','and_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -18,7 +18,7 @@ class OR_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,2)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','or_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','or_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -31,7 +31,7 @@ class NOT_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,7)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','not_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','not_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -44,7 +44,7 @@ class XOR_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,3)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','xor_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','xor_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -57,7 +57,7 @@ class NAND_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,4)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','nand_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','nand_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -70,7 +70,7 @@ class NOR_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,5)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','nor_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','nor_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         
@@ -83,7 +83,7 @@ class XNOR_Gate(logicGate):
     def __init__(self):
         logicGate.__init__(self,6)
         self.reqr_real = True
-        self.image = pygame.image.load(os.path.join('Module','Resources','xnor_gate.png'))
+        self.image = pygame.image.load(os.path.join('Module','Resources','xnor_gate.png')).convert_alpha()
         self.rect = self.image.get_rect()
         self.update()
         

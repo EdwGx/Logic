@@ -11,7 +11,7 @@ class SideBar:
         self.disply_list = []
         self.waiting_list = []
         self.graphic_controller = graphic_controller
-        self.bar_image = pygame.image.load(os.path.join('UI','Resources','selection_bar.png'))
+        self.bar_image = pygame.image.load(os.path.join('UI','Resources','selection_bar.png')).convert_alpha()
         self.font = pygame.font.SysFont("Helvetica",12,True)
         #Add game elements/module Black
         #1-7:Gates,8:Switch
@@ -134,7 +134,7 @@ class SideBar:
 
 def load_image(fname):
     path = os.path.join('Module','Resources',fname)
-    return pygame.image.load(path)
+    return pygame.image.load(path).convert_alpha()
 
 def get_centerx(centery):
     y = abs(300 - centery)

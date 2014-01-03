@@ -5,7 +5,7 @@ from UI.lib import snap_to_port
 #----Engine and Base Code----
 pygame.init()
 size = [900,600]
-screen = pygame.display.set_mode(size)
+screen = pygame.display.set_mode(size,pygame.DOUBLEBUF)
 pygame.display.set_caption("Logic")
 pygame.event.set_allowed([pygame.QUIT,pygame.KEYDOWN,
                           pygame.MOUSEBUTTONDOWN,pygame.MOUSEBUTTONUP])
@@ -16,7 +16,8 @@ pygame.event.set_allowed([pygame.QUIT,pygame.KEYDOWN,
 gaphic_frames = 60
 gates_group = pygame.sprite.LayeredUpdates()
 wires_group = pygame.sprite.Group()
-background = pygame.image.load(os.path.join('UI','Resources','background.png'))
+background = pygame.image.load(os.path.join('UI','Resources','background.png')).convert()
+background.set_alpha(None)
 disply_fps = False
 log_fps = False
 fileIO.check_file()
