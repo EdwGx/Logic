@@ -102,10 +102,10 @@ class FileMenu:
         self.draw_surface = pygame.Surface((496+self.space*3,400+self.space*3+self.b_height),
                                            flags=pygame.SRCALPHA)
         self.draw_surface.convert_alpha()
-        selected_image = pygame.image.load(os.path.join('UI','Resources','selected.png'))
+        selected_image = pygame.image.load(os.path.join('UI','Resources','selected.png')).convert_alpha()
         selected_rect = selected_image.get_rect()
         
-        shadow_image = pygame.image.load(os.path.join('UI','Resources','shadow.png'))
+        shadow_image = pygame.image.load(os.path.join('UI','Resources','shadow.png')).convert_alpha()
         shadow_rect = shadow_image.get_rect()
 
         dark = pygame.Surface((152,120))
@@ -118,7 +118,7 @@ class FileMenu:
             else:
                 path = os.path.join('UI','Resources','unknow.png')
                 
-            image = pygame.image.load(path)
+            image = pygame.image.load(path).convert()
             shadow_rect.center = self.image_pos[i].center
             self.draw_surface.blit(shadow_image,shadow_rect)
             if i == self.hover:
@@ -132,17 +132,17 @@ class FileMenu:
                 self.draw_surface.blit(selected_image,selected_rect)
                 
                 
-        image = pygame.image.load(os.path.join('UI','Resources','button_save.png'))
+        image = pygame.image.load(os.path.join('UI','Resources','button_save.png')).convert()
         if 9 != self.hover or self.current == None:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[9])
         
-        image = pygame.image.load(os.path.join('UI','Resources','button_cancel.png'))
+        image = pygame.image.load(os.path.join('UI','Resources','button_cancel.png')).convert()
         if 10 != self.hover:
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[10])
 
-        image = pygame.image.load(os.path.join('UI','Resources','button_load.png'))
+        image = pygame.image.load(os.path.join('UI','Resources','button_load.png')).convert()
         if 11 != self.hover or self.current == None or not(self.files_status[self.current]):
             image.set_alpha(self.alpha)
         self.draw_surface.blit(image,self.image_pos[11])

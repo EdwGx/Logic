@@ -19,7 +19,6 @@ wires_group = pygame.sprite.Group()
 background = pygame.image.load(os.path.join('UI','Resources','background.png')).convert()
 background.set_alpha(None)
 disply_fps = False
-log_fps = False
 fileIO.check_file()
 
 gaphic_controller = controller.Graphic(gates_group,wires_group)
@@ -37,8 +36,6 @@ while done == False:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
                 disply_fps = not(disply_fps)
-            if event.key == pygame.K_l:
-                log_fps = not(log_fps)
                 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()
@@ -62,16 +59,12 @@ while done == False:
                     elif ops[0] == 3:
                         fileIO.load(ops[1],gates_group,wires_group)
                 else:
-                    if gaphic_controller.event == 0:
-                        if(mouse_pos[0] > 760) and (mouse_pos[1] < 36):
-                           file_controller.open_menu(mouse_pos)
+                    if(mouse_pos[0] > 760) and (mouse_pos[1] < 36):
+                        if gaphic_controller.event == 0:
+                            file_controller.open_menu(mouse_pos)
                     else:
                         gaphic_controller.mouse_up(mouse_pos)
     #Game&Graphic Logic
-    if log_fps:
-        f = open('log.txt','a')
-        f.write('%.2f\n'%(clock.get_fps()))
-        f.close()
     if file_controller.draw_menu:
         file_controller.graphic_logic()
     gaphic_controller.graphic_logic()

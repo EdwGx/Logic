@@ -7,6 +7,7 @@ class Port:
         self.real_input = False
         self.conn_wire = True
         self.conn_list = []
+        
     def set_default_status(self):
         self.update_status(False)
     

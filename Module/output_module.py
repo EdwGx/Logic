@@ -27,8 +27,13 @@ class Output(logicGate):
             port.update_req(True)
 
     def draw_image(self):
-        if self.status and self.port[1].real_input:
+        if self.status and self.port[0].real_input:
             self.image = pygame.image.load(os.path.join('Module','Resources','bulb_on.png')).convert_alpha()
         else:
             self.image = pygame.image.load(os.path.join('Module','Resources','bulb_off.png')).convert_alpha()
+
+    def update_real_input(self):
+        logicGate.update_real_input(self)
+        self.draw_image()
+        
 
