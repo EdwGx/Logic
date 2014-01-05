@@ -46,6 +46,14 @@ def snap_to_port(gates_group,wire,pos):
                         closest_gate = gate
                         closest_port = 2
                         closest_distance = dis
+
+                if gate.multi_in:
+                    for i in range(3,len(gate.port)):
+                        dis = get_dis_nsqrt(pos,gate.port_pos(i))
+                        if dis < closest_distance and gate.port[i].is_enough_wire():
+                            closest_gate = gate
+                            closest_port = i
+                            closest_distance = dis
                         
             elif find_end == False and gate != wire.end_module:
                 dis = get_dis_nsqrt(pos,gate.port_pos(0))

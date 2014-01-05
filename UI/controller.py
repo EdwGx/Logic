@@ -237,6 +237,8 @@ class Graphic(Controller):
             new_module = input_module.Button()
         elif module_type == 10:
             new_module = output_module.Output()
+        elif module_type == 11:
+            new_module = output_module.Hexdisplay()
 
         new_module.rect.center = pos
         self.new_type = module_type

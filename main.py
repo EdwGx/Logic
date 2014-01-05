@@ -36,6 +36,7 @@ while done == False:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
                 disply_fps = not(disply_fps)
+                print(len(wires_group))
                 
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_pos = pygame.mouse.get_pos()

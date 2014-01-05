@@ -86,6 +86,7 @@ class logicGate(pygame.sprite.DirtySprite):
         self.status = False #output
         self.deleting = False 
         self.dual_in = False
+        self.multi_in = False
         #--Define--
         self.gate_type = gate_type
         #1.AND 2.OR 3.XOR 4.NAND 5.NOR 6.XNOR 7.NOT 8.SWITCH 9.BUTTON
@@ -188,6 +189,7 @@ class Wire(pygame.sprite.DirtySprite):
         self.draw_image()
 
     def kill(self):
+        print 'k1'
         if self.start_module != None:
             if self in self.start_module.port[self.start_port].conn_list: 
                 self.start_module.port[self.start_port].conn_list.remove(self)
