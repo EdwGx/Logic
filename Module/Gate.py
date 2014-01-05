@@ -35,11 +35,9 @@ class Port:
             wire.kill()
 
     def kill_wire(self):
-        for wire in self.conn_list:
-            wire.kill()
-        #Unknow bug,it can't kill all wire
-        for wire in self.conn_list:
-            wire.kill()
+        while len(self.conn_list) > 0:
+            for wire in self.conn_list:
+                wire.kill()
         self.conn_list = []
 
     def new_real_input(self,new):
@@ -154,7 +152,8 @@ class Wire(pygame.sprite.DirtySprite):
             self.end_module = module
             self.end_port = port
             self.end_module.port[self.end_port].connect_wire(self)
-            
+
+        self.delete = False
         self.reqr_real = True
         self.get_graphic_info()
         self.draw_image()
@@ -189,7 +188,7 @@ class Wire(pygame.sprite.DirtySprite):
         self.draw_image()
 
     def kill(self):
-        print 'k1'
+        self.delete = True
         if self.start_module != None:
             if self in self.start_module.port[self.start_port].conn_list: 
                 self.start_module.port[self.start_port].conn_list.remove(self)
