@@ -153,7 +153,6 @@ class Wire(pygame.sprite.DirtySprite):
             self.end_port = port
             self.end_module.port[self.end_port].connect_wire(self)
 
-        self.delete = False
         self.reqr_real = True
         self.get_graphic_info()
         self.draw_image()
@@ -188,7 +187,6 @@ class Wire(pygame.sprite.DirtySprite):
         self.draw_image()
 
     def kill(self):
-        self.delete = True
         if self.start_module != None:
             if self in self.start_module.port[self.start_port].conn_list: 
                 self.start_module.port[self.start_port].conn_list.remove(self)
