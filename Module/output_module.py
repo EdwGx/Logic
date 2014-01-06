@@ -1,4 +1,4 @@
-from Gate import logicGate,Port
+from Module.Gate import logicGate,Port
 import pygame.image,os.path
 class Output(logicGate):
     def __init__(self):
