@@ -1,5 +1,5 @@
-from Gate import logicGate
-import Logic,pygame.image,os.path
+from Module.Gate import logicGate
+import Module.Logic,pygame.image,os.path
 
 class AND_Gate(logicGate):
     def __init__(self):
