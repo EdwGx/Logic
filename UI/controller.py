@@ -1,4 +1,4 @@
-from lib import select_sprite,snap_to_port,get_dis_nsqrt
+from UI.lib import select_sprite,snap_to_port,get_dis_nsqrt
 import pygame.image,pygame.sprite,os.path,sys
 sys.path.append("..")
 from Module.Gate import Wire
