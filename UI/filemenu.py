@@ -1,4 +1,5 @@
-import pygame,os,shutil,UI.fileIO
+import pygame,os,shutil
+from UI import fileIO
 class FileMenu:
     def __init__(self):
         self.draw_menu = False
