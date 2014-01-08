@@ -1,6 +1,6 @@
 from Module.Gate import logicGate
 import pygame.image,os.path
-from Module.Logic import*
+from Module import Logic
 
 class AND_Gate(logicGate):
     def __init__(self):
