@@ -119,6 +119,8 @@ def get_module(module_type):
         new_module = input_module.Button()
     elif module_type == 10:
         new_module = output_module.Output()
+    elif module_type == 11:
+        new_module = output_module.Hexdisplay()
         
     return new_module
 
