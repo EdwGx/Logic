@@ -36,6 +36,7 @@ class Port:
 
     def kill_wire(self):
         while len(self.conn_list) > 0:
+            print len(self.conn_list)
             for wire in self.conn_list:
                 wire.kill()
         self.conn_list = []
@@ -190,11 +191,14 @@ class Wire(pygame.sprite.DirtySprite):
         if self.start_module != None:
             if self in self.start_module.port[self.start_port].conn_list: 
                 self.start_module.port[self.start_port].conn_list.remove(self)
+                
         if self.end_module != None:
+            if self in self.end_module.port[self.end_port].conn_list:
+                self.end_module.port[self.end_port].conn_list.remove(self)
+                
             if self.end_module.deleting == False:
                 if self in self.end_module.port[self.end_port].conn_list: 
                     self.end_module.port[self.end_port].set_default_status()
-                    self.end_module.port[self.end_port].conn_list.remove(self)
                 self.end_module.port[self.end_port].real_input = False
                 self.end_module.update_real_input()
                 self.end_module.update()
