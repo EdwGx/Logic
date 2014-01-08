@@ -36,7 +36,6 @@ class Port:
 
     def kill_wire(self):
         while len(self.conn_list) > 0:
-            print len(self.conn_list)
             for wire in self.conn_list:
                 wire.kill()
         self.conn_list = []
