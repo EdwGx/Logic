@@ -38,7 +38,7 @@ class Output(logicGate):
 
 class Hexdisplay(Output):
     def __init__(self):
-        logicGate.__init__(self,10)
+        logicGate.__init__(self,11)
         self.port.append(Port((20,10),True)) #OUTPUT
         #INPUT
         self.port.append(Port((6,16),False))
