@@ -8,7 +8,8 @@ size = [900,600]
 screen = pygame.display.set_mode(size,pygame.DOUBLEBUF)
 pygame.display.set_caption("Logic")
 pygame.event.set_allowed([pygame.QUIT,pygame.KEYDOWN,
-                          pygame.MOUSEBUTTONDOWN,pygame.MOUSEBUTTONUP])
+                          pygame.MOUSEBUTTONDOWN,pygame.MOUSEBUTTONUP,
+                          pygame.MOUSEMOTION])
 
 
 
@@ -19,6 +20,7 @@ wires_group = pygame.sprite.Group()
 background = pygame.image.load(os.path.join('UI','Resources','background.png')).convert()
 background.set_alpha(None)
 disply_fps = False
+mouse_pos = (0,0)
 fileIO.check_file()
 
 gaphic_controller = controller.Graphic(gates_group,wires_group)
@@ -36,9 +38,11 @@ while done == False:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_f:
                 disply_fps = not(disply_fps)
+
+        if event.type == pygame.MOUSEMOTION:
+            mouse_pos = event.pos
                 
         if event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
             if not(file_controller.block_mouse):
                 if event.button == 1 and mouse_pos[0] > 140:
                     gaphic_controller.mouse_down(mouse_pos)
@@ -50,7 +54,6 @@ while done == False:
                     selection_controller.scroll_down()
                     
         if event.type == pygame.MOUSEBUTTONUP:
-            mouse_pos = pygame.mouse.get_pos()
             if event.button == 1:
                 if file_controller.block_mouse:
                     ops = file_controller.mouse_up(mouse_pos)
@@ -65,6 +68,13 @@ while done == False:
                     else:
                         gaphic_controller.mouse_up(mouse_pos)
     #Game&Graphic Logic
+    if mouse_pos[0] < 20:
+            if mouse_pos[1] < 20:
+                selection_controller.scroll_up()
+            elif mouse_pos[1] > 580:
+                selection_controller.scroll_down()
+
+                    
     if file_controller.draw_menu:
         file_controller.graphic_logic()
     gaphic_controller.graphic_logic()
