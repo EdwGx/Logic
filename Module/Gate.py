@@ -1,4 +1,5 @@
-import pygame,color,os.path,math
+import pygame,os.path,math
+from Module import color
 class Port:
     def __init__ (self,position=(0,0),multi_connection=False):
         self.multi = multi_connection #Multilple connection
