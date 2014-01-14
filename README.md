@@ -26,7 +26,6 @@ Plan Features
 * ~~Add wires freely~~ 
 * ~~More Input Devices (Switch and Button)~~
 * ~~More Output Devices  (light bulb)~~
-* Make an object-c app with SpriteKit  
 
 Save File
 ---------
