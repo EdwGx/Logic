@@ -20,7 +20,8 @@ wires_group = pygame.sprite.Group()
 background = pygame.image.load(os.path.join('UI','Resources','background.png')).convert()
 background.set_alpha(None)
 disply_fps = False
-mouse_pos = (0,0)
+mouse_pos = (450,600)
+pygame.mouse.set_pos(mouse_pos)
 fileIO.check_file()
 
 gaphic_controller = controller.Graphic(gates_group,wires_group)
