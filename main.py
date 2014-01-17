@@ -60,6 +60,10 @@ while done == False:
                     ops = file_controller.mouse_up(mouse_pos)
                     if ops[0] == 2:
                         fileIO.save(ops[1],gates_group,wires_group)
+                        file_controller.update_file()
+                        file_controller.redraw_menu()
+                        
+                        
                     elif ops[0] == 3:
                         fileIO.load(ops[1],gates_group,wires_group)
                 else:

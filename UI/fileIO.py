@@ -97,6 +97,12 @@ def load(path,gate_group,wire_group):
                 
     del read_list
     del load_list
+
+def clear_file(path):
+    f = open(path,'w')
+    f.write('E')
+    f.close()
+    
             
 def get_module(module_type):
     if module_type == 1:

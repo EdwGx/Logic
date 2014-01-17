@@ -11,6 +11,8 @@ class FileMenu:
         font = pygame.font.SysFont("Helvetica",20,True)
         self.button_image = font.render('Save & Load',True,(255,255,255))
         self.button_width = self.button_image.get_width()
+        self.delete_icon = pygame.image.load(os.path.join('UI','Resources','delete_icon.png')).convert_alpha()
+        self.delete_rect = None
         self.current = None
         self.hover = None
         #Graphic
@@ -49,25 +51,34 @@ class FileMenu:
         self.redraw_menu()
         self.screen_shot = True
 
+    def delete_button(self,rel,num):
+        if self.delete_rect != None:
+            if self.delete_rect.collidepoint(rel):
+                self.current = None
+                self.delete_rect = None
+                fileIO.clear_file(os.path.join('UI','Save',('logic%d.save'%num)))
+                self.update_file()
+
     def mouse_up(self,pos):
         rel = (pos[0] - self.top[0],pos[1] - self.top[1])
+
         for i in range(12):
             if self.image_pos[i].collidepoint(rel):
                 if i < 9:
                     if self.current != i:
                         self.current = i
+                        self.delete_button(rel,i)
                         self.redraw_menu()
                     else:
                         self.current = None
+                        self.delete_button(rel,i)
                         self.redraw_menu()
                     return (0,None)
                     
                 elif i == 9 and self.current != None:
                     path = os.path.join('UI','Save',('logic%d.save'% self.current))
-                    shutil.move(os.path.join('UI','Temp','screen_shot.png'),
+                    shutil.copy(os.path.join('UI','Temp','screen_shot.png'),
                                 os.path.join('UI','Save',('shot%d.png'% self.current)))
-                    self.draw_menu = False
-                    self.block_mouse = False
                     return (2,path)
                 
                 elif i == 10:
@@ -83,9 +94,8 @@ class FileMenu:
                     if os.path.exists(path):
                         os.remove(path)
                     path = os.path.join('UI','Save',('logic%d.save'% self.current))
-                    self.draw_menu = False
-                    self.block_mouse = False
                     return (3,path)
+                
         return (0,None)
                     
 
@@ -128,10 +138,13 @@ class FileMenu:
                 image.set_alpha(self.alpha)
                 
             self.draw_surface.blit(image,self.image_pos[i])
+                                       
             if i == self.current:
                 selected_rect.center = self.image_pos[i].center
                 self.draw_surface.blit(selected_image,selected_rect)
-                
+        if self.delete_rect != None:
+            self.draw_surface.blit(self.delete_icon,self.delete_rect)
+            
                 
         image = pygame.image.load(os.path.join('UI','Resources','button_save.png')).convert()
         if 9 != self.hover or self.current == None:
@@ -157,6 +170,11 @@ class FileMenu:
                 if self.image_pos[i].collidepoint(rel):
                     if i != self.hover:
                         self.hover = i
+                        if i <9:
+                            if self.files_status[i]:
+                                self.delete_rect = pygame.Rect(self.image_pos[i].right-22,
+                                                               self.image_pos[i].y+2,
+                                                               20,20)
                         self.redraw_menu()
                         collide = True
                         break
@@ -165,6 +183,7 @@ class FileMenu:
                         break
             if collide == False:
                 if self.hover != None:
+                    self.delete_rect = None
                     self.hover = None
                     self.redraw_menu()
             
@@ -174,7 +193,6 @@ class FileMenu:
     def draw(self,surface):
         if self.draw_menu:
             surface.blit(self.draw_surface,self.top)
-            mouse_pos = pygame.mouse.get_pos()
 
         if self.screen_shot:
             self.screen_shot = False
