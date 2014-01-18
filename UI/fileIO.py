@@ -131,11 +131,7 @@ def get_module(module_type):
     return new_module
 
 def check_file():
-    #check /Temp
-    path = os.path.join('UI','Temp')
-    if not(os.path.exists(path)):
-        os.makedirs(path)
-    #chek /Save
+    #check /Save
     path = os.path.join('UI','Save')
     if not(os.path.exists(path)):
         os.makedirs(path)

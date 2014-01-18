@@ -57,6 +57,8 @@ class FileMenu:
                 self.current = None
                 self.delete_rect = None
                 fileIO.clear_file(os.path.join('UI','Save',('logic%d.save'%num)))
+                path = os.path.join('UI','Save',('shot%d.png'% num))
+                os.remove(path)
                 self.update_file()
 
     def mouse_up(self,pos):
@@ -77,12 +79,12 @@ class FileMenu:
                     
                 elif i == 9 and self.current != None:
                     path = os.path.join('UI','Save',('logic%d.save'% self.current))
-                    shutil.copy(os.path.join('UI','Temp','screen_shot.png'),
+                    shutil.copy(os.path.join('UI','Save','temp_shot.png'),
                                 os.path.join('UI','Save',('shot%d.png'% self.current)))
                     return (2,path)
                 
                 elif i == 10:
-                    path = os.path.join('UI','Temp','screen_shot.png')
+                    path = os.path.join('UI','Save','temp_shot.png')
                     if os.path.exists(path):
                         os.remove(path)
                     self.draw_menu = False
@@ -200,7 +202,7 @@ class FileMenu:
             screenshot = pygame.Surface((760,600))
             screenshot.blit(surface,(0,0),(140,0,760,600))
             screenshot = pygame.transform.smoothscale(screenshot,(152,120))
-            path = os.path.join('UI','Temp','screen_shot.png')
+            path = os.path.join('UI','Save','temp_shot.png')
             pygame.image.save(screenshot,path)
         else:
             surface.blit(self.button_image,(880-self.button_width,10))
