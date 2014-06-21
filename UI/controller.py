@@ -33,6 +33,7 @@ class Graphic(Controller):
         self.dels_pic = pygame.image.load(os.path.join('UI','Resources','delete_side.png'))                   
         #Drag
         self.drag_module = None
+        self.drag_module_original_image = None
         self.drag_mPos = (0,0)
         self.double_click = False
         #Group
@@ -82,6 +83,7 @@ class Graphic(Controller):
                 self.drag_module.kill()
             self.drag_module.move_update()
             self.event = 0
+            self.drag_module.image = self.drag_module_original_image
             self.drag_module = None
             self.drag_mPos = (0,0)
         elif self.event == 3:
@@ -100,6 +102,7 @@ class Graphic(Controller):
             self.drag_module.move_update()
             self.side_bar.new_module_stop(self.new_type)
             self.event = 0
+            self.drag_module.image = self.drag_module_original_image
             self.drag_module = None
             self.drag_mPos = (0,0)
 
@@ -211,6 +214,9 @@ class Graphic(Controller):
         if module.click_res(rel_pos):
             self.event = 2
             self.drag_module = module
+            self.drag_module_original_image = self.drag_module.image
+            zoom_size = (int(self.drag_module.image.get_width()*1.2), int(self.drag_module.image.get_height()*1.2))
+            self.drag_module.image = pygame.transform.smoothscale(self.drag_module.image, zoom_size)#.covert_alpha().set_alpha(200)
             self.drag_mPos = pygame.mouse.get_pos()
             self.draw_delc_delay = 10
 
@@ -243,6 +249,9 @@ class Graphic(Controller):
         new_module.rect.center = pos
         self.new_type = module_type
         self.drag_module = new_module
+        self.drag_module_original_image = self.drag_module.image
+        zoom_size = (int(self.drag_module.image.get_width()*1.2), int(self.drag_module.image.get_height()*1.2))
+        self.drag_module.image = pygame.transform.smoothscale(self.drag_module.image, zoom_size)#.covert_alpha().set_alpha(200)
         self.drag_mPos = pygame.mouse.get_pos()
         self.event = 3
         self.draw_delc_delay = 10
