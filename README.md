@@ -13,7 +13,7 @@ How to install?
 Example
 --------
 ###1-Bit Full Adder
-![alt tag](http://i.imgur.com/yMtgiHK.png)    
+![alt tag](https://raw.githubusercontent.com/EdwGx/Logic-Pygame/master/example.png)    
    
 Plan Features
 -------------
